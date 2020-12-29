@@ -72,6 +72,9 @@ public class SpielManger {
 
 
     public void dealerZiehen() {
+
+        //TODO: Multiplayer fixen
+
         int index = spiel.getSpieler().indexOf(spiel.getAktuellerSpieler());
         if (index + 2 > spiel.getSpielerAnzahl()) {
             while (spiel.getDealer().takeCard()) {
