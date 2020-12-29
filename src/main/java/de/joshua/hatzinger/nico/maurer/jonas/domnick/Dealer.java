@@ -1,3 +1,5 @@
+package de.joshua.hatzinger.nico.maurer.jonas.domnick;
+
 public class Dealer extends Entity {
 
     public Dealer() {

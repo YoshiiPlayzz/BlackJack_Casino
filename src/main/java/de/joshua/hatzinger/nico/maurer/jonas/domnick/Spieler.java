@@ -1,3 +1,5 @@
+package de.joshua.hatzinger.nico.maurer.jonas.domnick;
+
 public class Spieler extends Entity {
 
 

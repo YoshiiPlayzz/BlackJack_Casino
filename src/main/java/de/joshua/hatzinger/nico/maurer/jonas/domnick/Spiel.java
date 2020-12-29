@@ -1,3 +1,5 @@
+package de.joshua.hatzinger.nico.maurer.jonas.domnick;
+
 import java.util.*;
 
 public class Spiel {

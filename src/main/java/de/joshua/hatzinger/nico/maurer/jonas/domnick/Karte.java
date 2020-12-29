@@ -1,3 +1,5 @@
+package de.joshua.hatzinger.nico.maurer.jonas.domnick;
+
 public enum Karte {
     KARO_ZWEI(2, Farbe.KARO),
     KARO_DREI(3, Farbe.KARO),

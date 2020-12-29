@@ -1,3 +1,5 @@
+package de.joshua.hatzinger.nico.maurer.jonas.domnick;
+
 public class Main {
     public static void main(String[] args) {
         Spiel s = new Spiel();

@@ -1,3 +1,5 @@
+package de.joshua.hatzinger.nico.maurer.jonas.domnick;
+
 public enum Farbe {
     KARO(true),
     HERZ(true),
