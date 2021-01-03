@@ -1,6 +1,9 @@
-package de.joshua.hatzinger.nico.maurer.jonas.domnick;
+package de.joshua.hatzinger.nico.maurer.jonas.domnick.game;
 
 public enum Karte {
+
+    //TODO: Karten erweitern um src
+
     KARO_ZWEI(2, Farbe.KARO),
     KARO_DREI(3, Farbe.KARO),
     KARO_VIER(4, Farbe.KARO),

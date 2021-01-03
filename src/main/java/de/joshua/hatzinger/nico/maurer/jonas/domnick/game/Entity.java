@@ -1,4 +1,4 @@
-package de.joshua.hatzinger.nico.maurer.jonas.domnick;
+package de.joshua.hatzinger.nico.maurer.jonas.domnick.game;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,6 +43,11 @@ public abstract class Entity {
         }
         return false;
     }
+
+    public void aufgeben() {
+        this.gewinner = false;
+    }
+
 
     public int[] getKartenSumme() {
         int count1 = 0;

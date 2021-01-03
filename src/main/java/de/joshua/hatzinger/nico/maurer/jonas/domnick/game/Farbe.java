@@ -1,4 +1,4 @@
-package de.joshua.hatzinger.nico.maurer.jonas.domnick;
+package de.joshua.hatzinger.nico.maurer.jonas.domnick.game;
 
 public enum Farbe {
     KARO(true),

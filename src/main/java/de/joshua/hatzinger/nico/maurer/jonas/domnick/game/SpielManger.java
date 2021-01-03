@@ -1,4 +1,4 @@
-package de.joshua.hatzinger.nico.maurer.jonas.domnick;
+package de.joshua.hatzinger.nico.maurer.jonas.domnick.game;
 
 import java.util.List;
 import java.util.Scanner;
@@ -27,7 +27,7 @@ public class SpielManger {
             }
             for (int i = 0; i < c; i++) {
                 Spieler spieler = new Spieler(name[i]);
-                spieler.setGuthaben(1000);
+                spieler.setGuthaben(8000);
                 spiel.addSpieler(spieler);
             }
         }
@@ -39,34 +39,29 @@ public class SpielManger {
         spiel.toErstenSpieler();
         for (int i = 0; i < spiel.getSpieler().size(); i++) {
             einsatzSetzen();
-            spiel.naechsterZug();
+            spiel.naechsterSpieler();
         }
         spiel.setPhase(SpielPhase.SPIELSTART);
         spiel.firstCards();
-        int c = 0;
-        for (Entity e : spiel.getSpieler()) {
-            if (e.hatGewonnen()) c++;
-        }
-        if (c != spiel.getSpieler().size()) {
-            System.out.println("Alle Spieler haben 2 Karten gezogen! " + spiel.getAktuellerSpieler().getName() + " darf anfangen!");
 
-        } else {
-            dealerZiehen();
-
-        }
-
-//TODO: Dealer eine Karte aufdecken
+        //TODO: Dealer eine Karte aufdecken
         while (!spiel.istZuende()) {
-            if (!spiel.getAktuellerSpieler().hatGewonnen() && !(spiel.getAktuellerSpieler().getKartenSumme()[0] > 21 || spiel.getAktuellerSpieler().getKartenSumme()[1] > 21)) {
+            if (spiel.istJederFertig()) {
+                spiel.setPhase(SpielPhase.SPIELENDE);
+                System.out.println("Das Spiel ist jetzt vorbei!");
+                break;
+            }
+            if (!spiel.getAktuellerSpieler().hatGewonnen()
+                    && !(spiel.getAktuellerSpieler().getKartenSumme()[0] > 21
+                    || spiel.getAktuellerSpieler().getKartenSumme()[1] > 21)) {
+                System.out.println(spiel.getAktuellerSpieler().getName() + " darf anfangen!");
                 sendAktuellerSpielerKarten();
                 karteZiehen();
             }
-            spiel.setPhase(SpielPhase.SPIEL);
-            dealerZiehen();
 
 
         }
-
+        dealerZiehen();
 
     }
 
@@ -74,9 +69,7 @@ public class SpielManger {
     public void dealerZiehen() {
 
         //TODO: Multiplayer fixen
-
-        int index = spiel.getSpieler().indexOf(spiel.getAktuellerSpieler());
-        if (index + 2 > spiel.getSpielerAnzahl()) {
+        if (spiel.istJederFertig()) {
             while (spiel.getDealer().takeCard()) {
                 spiel.getDealer().addKarte(spiel.getKarten().remove(0));
                 if (spiel.getDealer().hat21()) {
@@ -104,22 +97,27 @@ public class SpielManger {
                 spiel.setPhase(SpielPhase.SPIEL);
             }
             spiel.ziehKarte();
+
             int[] werte = spiel.getAktuellerSpieler().getKartenSumme();
             sendAktuellerSpielerKarten();
+
             if (werte[0] > 21 && werte[1] > 21) {
-                System.out.println("Du hast verloren");
+                System.out.println(spiel.getAktuellerSpieler().getName() + " ist über 21!");
                 spiel.naechsterZug();
+                if (!spiel.istJederFertig())
+                    spiel.setPhase(SpielPhase.SPIELSTART);
             } else if (werte[0] == 21 || werte[1] == 21) {
-                System.out.println("Du hast gewonnen!");
+                System.out.println(spiel.getAktuellerSpieler().getName() + " hat Black Jack!");
                 spiel.getAktuellerSpieler().setGewinner();
                 spiel.naechsterZug();
+                spiel.setPhase(SpielPhase.SPIELSTART);
             } else {
                 karteZiehen();
             }
-
-
         } else if (line.equalsIgnoreCase("Stand")) {
-            System.out.println("Du gehst raus");
+            System.out.println(spiel.getAktuellerSpieler().getName() + " geht raus!");
+            spiel.getAktuellerSpieler().setFertig();
+            spiel.setPhase(SpielPhase.SPIELSTART);
             spiel.naechsterZug();
         } else if (line.equalsIgnoreCase("Verdoppeln")) {
             if (spiel.getPhase().equals(SpielPhase.SPIELSTART)) {
@@ -130,6 +128,7 @@ public class SpielManger {
                     spiel.getEinsatz().replace(s, spiel.getEinsatz().get(s) * 2);
                     System.out.println("Du hast deinen Einsatz verdoppelt!");
                     spiel.setPhase(SpielPhase.SPIEL);
+                    sendAktuellerSpielerKarten();
                 } else {
                     System.out.println("Du kannst deinen  Einsatz nicht verdoppeln, da du zu wenig Guthaben dafür hast!");
                 }
@@ -140,7 +139,9 @@ public class SpielManger {
 
 
         } else if (line.equalsIgnoreCase("Surrender")) {
-
+            System.out.println(spiel.getAktuellerSpieler().getName() + " gibt auf!");
+            spiel.getAktuellerSpieler().aufgeben(spiel.getSpielerEinsatz());
+            spiel.naechsterZug();
         } else {
             System.out.println("Gebe einen gültigen Wert ein!");
             karteZiehen();
@@ -161,18 +162,16 @@ public class SpielManger {
         }
         if (einsatz > 0 || line.contains("all")) {
             if (line.contains("all")) {
-                if (spiel.getAktuellerSpieler() instanceof Spieler) {
-                    Spieler s = (Spieler) spiel.getAktuellerSpieler();
-                    einsatz = s.getGuthaben();
-                    s.setGuthaben(0);
-                }
+
+                Spieler s = spiel.getAktuellerSpieler();
+                einsatz = s.getGuthaben();
+                s.setGuthaben(0);
+
             }
             if (spiel.aktuellerSpielerEinsatzSetzen(einsatz)) {
-                if (spiel.getAktuellerSpieler() instanceof Spieler) {
-                    System.out.println("Du hast " + einsatz + " gesetzt!");
-                    Spieler s = (Spieler) spiel.getAktuellerSpieler();
-                    System.out.println("Der Spieler hat noch " + s.getGuthaben());
-                }
+                Spieler s = spiel.getAktuellerSpieler();
+                System.out.println(s.getName() + " hat " + einsatz + " gesetzt!");
+                System.out.println("Der Spieler '" + s.getName() + "' hat noch " + s.getGuthaben());
             } else {
                 einsatzSetzen();
             }
