@@ -19,14 +19,14 @@ public class StartWindow extends JFrame {
     private JLabel blackjack;
 
 
-    public StartWindow() {
+    public StartWindow(){
         try {
             dir = new File(".").getCanonicalPath() + "\\src";
         } catch (IOException e) {
             e.printStackTrace();
         }
         System.out.println(dir);
-
+        setIconImage(new ImageIcon(dir + "\\images\\Icons\\GameIcon\\icon.png").getImage());
         //Zentrierter Text mit Schriftart 'Arial' auf Schriftgröße 50
         blackjack = new JLabel("Blackjack", SwingConstants.CENTER);
         blackjack.setFont(new Font("Arial", Font.BOLD, 50));

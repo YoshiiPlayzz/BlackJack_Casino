@@ -4,16 +4,22 @@ import de.joshua.hatzinger.nico.maurer.jonas.domnick.Main;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.File;
 import java.io.IOException;
 
 public class LoadingScreen extends JFrame {
 
     private JLabel l;
     private JProgressBar p;
+    private String dir;
 
-    public LoadingScreen() {
+    public LoadingScreen(){
+        try {
+            dir = new File(".").getCanonicalPath() + "\\src";
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-
         setTitle("Black Jack");
         setResizable(false);
         setBackground(Color.GREEN);
@@ -21,6 +27,8 @@ public class LoadingScreen extends JFrame {
         setLayout(null);
         setLocationRelativeTo(null);
 
+
+        setIconImage(new ImageIcon(dir + "\\images\\Icons\\GameIcon\\icon.png").getImage());
         ImageIcon knossi = new ImageIcon(Main.class.getResource("/images/8000_Euro.gif"));
         l = new JLabel(knossi);
         l.setBounds(80, 20, knossi.getIconWidth() - 60, knossi.getIconHeight());
