@@ -28,7 +28,7 @@ public class Window extends JFrame {
         setMaximumSize(new Dimension(1936, 1056));
         setMinimumSize(new Dimension(993, 559));
         setTitle("Black Jack");
-       
+
 
 
 
