@@ -19,6 +19,7 @@ public class LoadingScreen extends JFrame {
         setBackground(Color.GREEN);
         setSize(440, 300);
         setLayout(null);
+        setLocationRelativeTo(null);
 
         ImageIcon knossi = new ImageIcon(Main.class.getResource("/images/8000_Euro.gif"));
         l = new JLabel(knossi);
@@ -29,8 +30,6 @@ public class LoadingScreen extends JFrame {
         p.setForeground(Color.GREEN);
 
         setVisible(true);
-        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        setLocation((int) (screenSize.getWidth() / 4), (int) (screenSize.getHeight() / 4));
         add(l);
         add(p);
         Main.playSound();
@@ -42,8 +41,6 @@ public class LoadingScreen extends JFrame {
                 if (i == 16) {
                     dispose();
                     new StartWindow();
-
-
                 }
             }
 

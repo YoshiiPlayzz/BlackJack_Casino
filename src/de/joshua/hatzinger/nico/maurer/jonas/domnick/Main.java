@@ -21,11 +21,21 @@ public class Main {
         //SpielManger sm = new SpielManger(s, new String[]{"Zocker 1", "Zocker 2","Zocker 3","Zocker 4","Zocker 5","Zocker 6","Zocker 7","Zocker 8",}, true);
         //sm.startSpiel();
 
+
+        //!!ACHTUNG!!!
+        //DIE SOUNDS FÜR JAVA vorher herunterstellen!
+        //ES KANN ZU GEHÖRSCHÄDEN KOMMEN
+
         new LoadingScreen();
 
 
 
     }
+
+
+    //Spielt den 8000€ Sound ab
+
+
     public static void playSound() {
         try {
             Clip sound = AudioSystem.getClip();

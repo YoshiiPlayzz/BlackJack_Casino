@@ -41,7 +41,7 @@ public class Window extends JFrame {
         setIconImage(new ImageIcon(dir + "\\images\\Icons\\GameIcon\\icon.png").getImage());
         getContentPane().setLayout(null);
 
-        setGuthabenFont(50);
+        setGuthabenFont(8000000);
 
 
         //Muss als letztes stehen!!!!
@@ -60,10 +60,9 @@ public class Window extends JFrame {
                     setSize(1936, 1056);
                     setLocationRelativeTo(null);
                 }
+                gut.setBounds(getWidth()-300, 20, 600, 25);
             }
         });
-        Scanner s = new Scanner(System.in);
-        setGuthabenFont(s.nextInt());
     }
 
 
@@ -73,7 +72,7 @@ public class Window extends JFrame {
     public void setGuthabenFont(int guthaben) {
         String str = gut.getText();
         if(str.equals("F")) {
-            gut.setBounds(770, 20, 500, 25);
+            gut.setBounds(getWidth()-300, 20, 600, 25);
             gut.setFont(new Font("Arial", Font.BOLD, 20));
         }
         gut.setText("Guthaben: " + guthaben);

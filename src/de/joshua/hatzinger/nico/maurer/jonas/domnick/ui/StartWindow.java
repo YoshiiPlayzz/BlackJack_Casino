@@ -3,16 +3,10 @@ package de.joshua.hatzinger.nico.maurer.jonas.domnick.ui;
 
 import de.joshua.hatzinger.nico.maurer.jonas.domnick.Main;
 
-import javax.imageio.ImageIO;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Clip;
-import javax.sound.sampled.LineUnavailableException;
-import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
@@ -56,7 +50,7 @@ public class StartWindow extends JFrame {
             }
         });
 
-        spielen.addActionListener(e ->{
+        spielen.addActionListener(e -> {
             dispose();
             try {
                 new Window();
@@ -73,10 +67,7 @@ public class StartWindow extends JFrame {
         setSize(440, 670);
         setLayout(null);
         setFocusable(true);
-
-
-
-
+        setLocationRelativeTo(null);
 
         addKeyListener(new KeyAdapter() {
 
@@ -87,24 +78,19 @@ public class StartWindow extends JFrame {
                     verlassen.doClick();
                 } else if (e.getKeyCode() == KeyEvent.VK_ENTER) {
                     spielen.doClick();
-                }else if(e.getKeyCode() == KeyEvent.VK_ALT){
+                } else if (e.getKeyCode() == KeyEvent.VK_ALT) {
                     Main.playSound();
                 }
             }
         });
-        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        setLocation((int) (screenSize.getWidth() / 4), (int) (screenSize.getHeight() / 4));
-        setVisible(true);
 
+        setVisible(true);
 
 
         add(blackjack);
         add(spielen);
         add(einstellungen);
         add(verlassen);
-
-
-
 
 
     }
