@@ -33,5 +33,8 @@ public class ImagePanel extends JPanel {
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         g.drawImage(scaled, 0, 0, getWidth(), getHeight(), null);
+        System.out.println(getWidth() + "     " + getHeight());
     }
+
+
 }
