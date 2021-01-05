@@ -1,38 +1,112 @@
 package de.joshua.hatzinger.nico.maurer.jonas.domnick.ui;
 
+
+import de.joshua.hatzinger.nico.maurer.jonas.domnick.Main;
+
+import javax.imageio.ImageIO;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ComponentAdapter;
-import java.awt.event.ComponentEvent;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
 public class StartWindow extends JFrame {
 
-
+    private String dir;
     private JButton verlassen;
     private JButton einstellungen;
     private JButton spielen;
     private JLabel blackjack;
 
-    public StartWindow() {
-        spielen = new JButton("Spielen");
-        einstellungen = new JButton("Einstellungen");
-        verlassen = new JButton("Verlassen");
 
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setVisible(true);
-        setTitle("Black Jack");
-        setBackground(Color.GREEN);
-        setSize(440, 670);
-        setLayout(new GridLayout(0,1));
-        addComponentListener(new ComponentAdapter() {
-            @Override
-            public void componentResized(ComponentEvent e) {
-                System.out.println("Size: " + getWidth() + "x" + getHeight());
+    public StartWindow() {
+        try {
+            dir = new File(".").getCanonicalPath() + "\\src";
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        System.out.println(dir);
+
+        //Zentrierter Text mit Schriftart 'Arial' auf Schriftgröße 50
+        blackjack = new JLabel("Blackjack", SwingConstants.CENTER);
+        blackjack.setFont(new Font("Arial", Font.BOLD, 50));
+        blackjack.setBounds(0, 10, 440, 60);
+
+
+        //Knöpfe
+        spielen = new JButton("Spielen");
+        spielen.setBounds(30, 160, 360, 50);
+        einstellungen = new JButton("Einstellungen");
+        einstellungen.setBounds(30, 300, 360, 50);
+        verlassen = new JButton("Verlassen");
+        verlassen.setBounds(30, 450, 360, 50);
+
+
+        verlassen.addActionListener(e -> {
+
+            int dialogResult = JOptionPane.showConfirmDialog(getContentPane(), "Willst du Black Jack schließen?", "Achtung", JOptionPane.YES_NO_OPTION);
+            if (dialogResult == JOptionPane.YES_OPTION) {
+                System.exit(-1);
             }
         });
+
+        spielen.addActionListener(e ->{
+            dispose();
+            try {
+                new Window();
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+            }
+        });
+
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+
+        setTitle("Black Jack");
+        setResizable(false);
+        setBackground(Color.GREEN);
+        setSize(440, 670);
+        setLayout(null);
+        setFocusable(true);
+
+
+
+
+
+        addKeyListener(new KeyAdapter() {
+
+
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
+                    verlassen.doClick();
+                } else if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+                    spielen.doClick();
+                }else if(e.getKeyCode() == KeyEvent.VK_ALT){
+                    Main.playSound();
+                }
+            }
+        });
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        setLocation((int) (screenSize.getWidth() / 4), (int) (screenSize.getHeight() / 4));
+        setVisible(true);
+
+
+
+        add(blackjack);
         add(spielen);
         add(einstellungen);
         add(verlassen);
 
+
+
+
+
     }
+
 }

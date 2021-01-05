@@ -18,7 +18,7 @@ public class Window extends JFrame {
     private JMenuBar bar;
     private JMenu einstellung;
 
-    private final String dir = new File(".").getCanonicalPath()+ "\\src\\main\\java";
+    private final String dir = new File(".").getCanonicalPath()+ "\\src";
 
 
     public Window() throws IOException {
