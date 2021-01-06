@@ -9,6 +9,7 @@ import java.io.IOException;
 
 public class Window extends JFrame {
 
+    //TODO: Spielverlauf
 
     private final ImagePanel backgroundImageLabel;
     private final JLabel gut;
@@ -68,8 +69,6 @@ public class Window extends JFrame {
         Font f = new Font("Arial", Font.BOLD, 40);
         if (str.equals("F")) {
             gut.setBounds(getWidth() - 430, 30, 600, 60);
-
-
             gut.setFont(f);
         }
         FontMetrics m = getFontMetrics(f);
@@ -79,7 +78,6 @@ public class Window extends JFrame {
 
         if (str.equals("F")) {
             add(gut);
-            setVisible(true);
         }
 
     }

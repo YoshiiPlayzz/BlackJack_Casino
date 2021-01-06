@@ -5,6 +5,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.io.IOException;
 
 public class StartWindow extends JFrame {
@@ -27,6 +29,20 @@ public class StartWindow extends JFrame {
 
         //Knöpfe
         spielen = new JButton("Spielen");
+        spielen.setBackground(new Color(0xaeaeae));
+        spielen.setForeground(Color.WHITE);
+
+        spielen.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                spielen.setBackground(new Color(0x4F4F4F));
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                spielen.setBackground(new Color(0xAEAEAE));
+            }
+        });
         spielen.setBounds(30, 160, 360, 50);
 
         einstellungen = new JButton("Einstellungen");
@@ -71,8 +87,6 @@ public class StartWindow extends JFrame {
                     verlassen.doClick();
                 } else if (e.getKeyCode() == KeyEvent.VK_ENTER) {
                     spielen.doClick();
-                } else if (e.getKeyCode() == KeyEvent.VK_ALT) {
-                    Main.playSound();
                 }
             }
         });
