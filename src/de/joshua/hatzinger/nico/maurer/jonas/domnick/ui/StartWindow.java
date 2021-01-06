@@ -28,6 +28,7 @@ public class StartWindow extends JFrame {
         //Knöpfe
         spielen = new JButton("Spielen");
         spielen.setBounds(30, 160, 360, 50);
+
         einstellungen = new JButton("Einstellungen");
         einstellungen.setBounds(30, 300, 360, 50);
         verlassen = new JButton("Verlassen");
