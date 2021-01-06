@@ -1,5 +1,7 @@
 package de.joshua.hatzinger.nico.maurer.jonas.domnick.ui;
 
+import de.joshua.hatzinger.nico.maurer.jonas.domnick.game.Dealer;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
@@ -36,6 +38,13 @@ public class Window extends JFrame {
         getContentPane().setLayout(null);
         add(muenze);
         setGuthabenFont(8000000);
+
+
+
+        Dealer d = new Dealer();
+        System.out.println(d.getKartenSumme());
+
+
 
 
         //Muss als letztes stehen!!!!
