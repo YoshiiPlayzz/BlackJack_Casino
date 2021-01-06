@@ -1,32 +1,24 @@
 package de.joshua.hatzinger.nico.maurer.jonas.domnick.ui;
 
 
-import de.joshua.hatzinger.nico.maurer.jonas.domnick.Main;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.io.File;
 import java.io.IOException;
 
 public class StartWindow extends JFrame {
 
-    private String dir;
-    private JButton verlassen;
-    private JButton einstellungen;
-    private JButton spielen;
-    private JLabel blackjack;
+    private final JButton verlassen;
+    private final JButton einstellungen;
+    private final JButton spielen;
+    private final JLabel blackjack;
 
 
-    public StartWindow(){
-        try {
-            dir = new File(".").getCanonicalPath() + "\\src";
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        System.out.println(dir);
-        setIconImage(new ImageIcon(dir + "\\images\\Icons\\GameIcon\\icon.png").getImage());
+    public StartWindow() {
+
+        setIconImage(new ImageIcon(Main.class.getResource("/images/Icons/GameIcon/icon.png")).getImage());
+
         //Zentrierter Text mit Schriftart 'Arial' auf Schriftgröße 50
         blackjack = new JLabel("Blackjack", SwingConstants.CENTER);
         blackjack.setFont(new Font("Arial", Font.BOLD, 50));

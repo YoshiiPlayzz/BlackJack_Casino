@@ -1,24 +1,15 @@
 package de.joshua.hatzinger.nico.maurer.jonas.domnick.ui;
 
-import de.joshua.hatzinger.nico.maurer.jonas.domnick.Main;
-
 import javax.swing.*;
 import java.awt.*;
-import java.io.File;
-import java.io.IOException;
 
 public class LoadingScreen extends JFrame {
 
-    private JLabel l;
-    private JProgressBar p;
-    private String dir;
+    private final JLabel l;
+    private final JProgressBar p;
 
-    public LoadingScreen(){
-        try {
-            dir = new File(".").getCanonicalPath() + "\\src";
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    public LoadingScreen() {
+
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setTitle("Black Jack");
         setResizable(false);
@@ -28,7 +19,7 @@ public class LoadingScreen extends JFrame {
         setLocationRelativeTo(null);
 
 
-        setIconImage(new ImageIcon(dir + "\\images\\Icons\\GameIcon\\icon.png").getImage());
+        setIconImage(new ImageIcon(Main.class.getResource("/images/Icons/GameIcon/icon.png")).getImage());
         ImageIcon knossi = new ImageIcon(Main.class.getResource("/images/8000_Euro.gif"));
         l = new JLabel(knossi);
         l.setBounds(80, 20, knossi.getIconWidth() - 60, knossi.getIconHeight());

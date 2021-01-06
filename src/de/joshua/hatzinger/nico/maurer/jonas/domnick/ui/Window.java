@@ -5,28 +5,25 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
-import java.io.File;
 import java.io.IOException;
-import java.net.URLDecoder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
-import java.util.Scanner;
 
 public class Window extends JFrame {
 
 
-    private ImagePanel backgroundImageLabel;
-    private JLabel gut;
-    private String dir;
+    private final ImagePanel backgroundImageLabel;
+    private final JLabel gut;
+    private final JLabel muenze;
 
 
     public Window() throws IOException {
-        try {
-            dir = new File(".").getCanonicalPath() + "\\src";
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+
         gut = new JLabel("F");
+
+        Image i = new ImageIcon(ImageIO.read(Main.class.getResource("/images/Münze/Münze.png"))).getImage();
+
+        muenze = new JLabel(new ImageIcon(i.getScaledInstance(50, 50, Image.SCALE_SMOOTH)));
+
+        gut.setForeground(Color.WHITE);
 
         //SetUp
         setMaximumSize(new Dimension(1936, 1056));
@@ -34,15 +31,15 @@ public class Window extends JFrame {
         setTitle("Black Jack");
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        Dimension screenSize = new Dimension(1936,1056);
-        setIconImage(new ImageIcon(dir + "\\images\\Icons\\GameIcon\\icon.png").getImage());
+        Dimension screenSize = new Dimension(1936, 1056);
+        setIconImage(new ImageIcon(Main.class.getResource("/images/Icons/GameIcon/icon.png")).getImage());
         getContentPane().setLayout(null);
-
+        add(muenze);
         setGuthabenFont(8000000);
 
 
         //Muss als letztes stehen!!!!
-        backgroundImageLabel = new ImagePanel(ImageIO.read(new File(dir + "\\images\\background.png")));
+        backgroundImageLabel = new ImagePanel(ImageIO.read(Main.class.getResource("/images/background.png")));
 
         backgroundImageLabel.setBounds(0, 0, (int) screenSize.getWidth(), (int) screenSize.getHeight());
 
@@ -59,22 +56,28 @@ public class Window extends JFrame {
                     setLocationRelativeTo(null);
                 }
 
+
             }
         });
     }
 
 
-
-
     //Ändert das Guthaben auf der Font
     public void setGuthabenFont(int guthaben) {
         String str = gut.getText();
-        if(str.equals("F")) {
-            gut.setBounds(getWidth()-430, 30, 600, 60);
-            gut.setFont(new Font("Arial", Font.BOLD, 40));
+        Font f = new Font("Arial", Font.BOLD, 40);
+        if (str.equals("F")) {
+            gut.setBounds(getWidth() - 430, 30, 600, 60);
+
+
+            gut.setFont(f);
         }
+        FontMetrics m = getFontMetrics(f);
         gut.setText("Guthaben: " + guthaben);
-        if(str.equals("F")) {
+        muenze.setBounds(getWidth() - 430 + m.stringWidth(gut.getText()) - 5, 30, 60, 60);
+
+
+        if (str.equals("F")) {
             add(gut);
             setVisible(true);
         }
