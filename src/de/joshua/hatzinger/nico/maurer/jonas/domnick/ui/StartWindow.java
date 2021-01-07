@@ -26,36 +26,26 @@ public class StartWindow extends JFrame {
         blackjack.setFont(new Font("Arial", Font.BOLD, 50));
         blackjack.setBounds(0, 10, 440, 60);
 
+        Font buttonFont = new Font("Arial Black", Font.BOLD, 36);
 
         //Knöpfe
-        spielen = new JButton("Spielen");
-        spielen.setBackground(new Color(0xaeaeae));
-        spielen.setForeground(Color.WHITE);
+        spielen = new JButton("SPIELEN");
+        spielen.setBounds(30, 160, 360, 50);
+
+        spielen.setBorder(BorderFactory.createLineBorder(new Color(0x15C0DE), 1, true));
+        spielen.setBackground(new Color(0x15C0DE));
+        spielen.setForeground(new Color(0xFFFFFF));
+        spielen.setFont(buttonFont);
 
         spielen.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
-                spielen.setBackground(new Color(0x4F4F4F));
+                spielen.setBackground(new Color(0x129EB7));
             }
 
             @Override
             public void mouseExited(MouseEvent e) {
-                spielen.setBackground(new Color(0xAEAEAE));
-            }
-        });
-        spielen.setBounds(30, 160, 360, 50);
-
-        einstellungen = new JButton("Einstellungen");
-        einstellungen.setBounds(30, 300, 360, 50);
-        verlassen = new JButton("Verlassen");
-        verlassen.setBounds(30, 450, 360, 50);
-
-
-        verlassen.addActionListener(e -> {
-
-            int dialogResult = JOptionPane.showConfirmDialog(getContentPane(), "Willst du Black Jack schließen?", "Achtung", JOptionPane.YES_NO_OPTION);
-            if (dialogResult == JOptionPane.YES_OPTION) {
-                System.exit(-1);
+                spielen.setBackground(new Color(0x15C0DE));
             }
         });
 
@@ -67,6 +57,52 @@ public class StartWindow extends JFrame {
                 ioException.printStackTrace();
             }
         });
+
+        einstellungen = new JButton("Einstellungen");
+        einstellungen.setBounds(30, 300, 360, 50);
+        einstellungen.setBackground(new Color(0x15C0DE));
+        einstellungen.setForeground(new Color(0xFFFFFF));
+        einstellungen.setFont(buttonFont);
+
+        einstellungen.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                einstellungen.setBackground(new Color(0x129EB7));
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                einstellungen.setBackground(new Color(0x15C0DE));
+            }
+        });
+
+
+        verlassen = new JButton("Verlassen");
+        verlassen.setBounds(30, 450, 360, 50);
+        verlassen.setBackground(new Color(0x15C0DE));
+        verlassen.setForeground(new Color(0xFFFFFF));
+        verlassen.setFont(buttonFont);
+
+        verlassen.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                verlassen.setBackground(new Color(0x129EB7));
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                verlassen.setBackground(new Color(0x15C0DE));
+            }
+        });
+
+        verlassen.addActionListener(e -> {
+
+            int dialogResult = JOptionPane.showConfirmDialog(getContentPane(), "Willst du Black Jack schließen?", "Achtung", JOptionPane.YES_NO_OPTION);
+            if (dialogResult == JOptionPane.YES_OPTION) {
+                System.exit(-1);
+            }
+        });
+
 
         setDefaultCloseOperation(EXIT_ON_CLOSE);
 
