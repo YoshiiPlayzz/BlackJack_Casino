@@ -22,11 +22,10 @@ public class Window extends JFrame {
     private final ImagePanel backgroundImageLabel;
     private final JLabel gut;
     private final JLabel muenze;
-    private JLabel dealer;
-    private Spiel spiel;
-    private java.util.List<JLabel> dealerKartenList;
-    private static Map<Spieler, List<JLabel>> spielerList = new HashMap<>();
-
+    private static final Map<Spieler, List<KartenLabel>> spielerList = new HashMap<>();
+    private final JLabel dealer;
+    private final Spiel spiel;
+    private final java.util.List<KartenLabel> dealerKartenList;
 
 
     public Window() throws IOException {
@@ -132,7 +131,7 @@ public class Window extends JFrame {
 
     public void addSpielerkarten(Spieler spieler, Karte karte){
         if (spielerList.containsKey(spieler)) {
-            List<JLabel> cc = spielerList.get(spieler);
+            List<KartenLabel> cc = spielerList.get(spieler);
             cc.add(new KartenLabel(karte));
             spielerList.replace(spieler, cc);
 
