@@ -58,7 +58,7 @@ public class Window extends JFrame {
 
 
         Image de = ImageIO.read(Main.class.getResource("/images/Icons/KaoIcon/kaoDealer.png"));
-        Image i1 = ImageIO.read(Main.class.getResource("/images/Kackkarten/Backsite.png"));
+        Image i1 = ImageIO.read(Main.class.getResource("/images/Karten/Backsite.png"));
         dealer = new JLabel(new ImageIcon(de.getScaledInstance(70,70,Image.SCALE_SMOOTH)));
         dealer.setBounds(getWidth()/2 - 250,80,230,100);
         dealer.setBorder(BorderFactory.createLineBorder(Color.BLACK,2,true));
