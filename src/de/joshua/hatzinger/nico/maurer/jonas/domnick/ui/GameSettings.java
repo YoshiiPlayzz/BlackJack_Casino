@@ -1,10 +1,17 @@
 package de.joshua.hatzinger.nico.maurer.jonas.domnick.ui;
 
+import de.joshua.hatzinger.nico.maurer.jonas.domnick.game.Spieler;
+import de.joshua.hatzinger.nico.maurer.jonas.domnick.utils.Countdown;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.io.IOException;
 import java.sql.SQLOutput;
+import java.util.concurrent.TimeUnit;
 
 public class GameSettings extends JFrame {
 
@@ -23,20 +30,40 @@ public class GameSettings extends JFrame {
         setFocusable(true);
         setLocationRelativeTo(null);
 
-
         name = new JTextField();
         name.setBounds(160,80,100,25);
         add(name);
 
+        label = new JLabel("Name eingeben");
+        label.setBounds(160, 40,100,25);
+        add(label);
 
         spielen = new JButton("Spielen");
+        name.addKeyListener(new KeyAdapter() {
+            public void keyPressed(KeyEvent e) {
+                if(e.getKeyCode()== KeyEvent.VK_ENTER){
+                    spielen.doClick();
+                }else{
+                    if(label.getText().equals("Name zu kurz")){
+                        label.setText("Name eingeben");
+                    }
+                }
+
+            }
+        });
         spielen.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 name.getText();
                 if(name.getText().length() <= 3) {
-                    System.out.println("Name zu kurz");
+                    label.setText("Name zu kurz");
                 }else{
-                    //weiter
+                    Window.addSpieler(new Spieler(name.getText()));
+                    dispose();
+                    try {
+                        new Window();
+                    } catch (IOException ioException) {
+                        ioException.printStackTrace();
+                    }
                 }
             }
         });
