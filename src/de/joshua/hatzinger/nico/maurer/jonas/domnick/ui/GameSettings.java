@@ -1,4 +1,8 @@
 package de.joshua.hatzinger.nico.maurer.jonas.domnick.ui;
 
-public class GameSettings {
+import javax.swing.*;
+
+public class GameSettings extends JFrame {
+
+
 }

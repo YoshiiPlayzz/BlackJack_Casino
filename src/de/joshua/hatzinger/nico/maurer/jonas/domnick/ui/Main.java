@@ -9,12 +9,12 @@ import java.io.IOException;
 public class Main {
 
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
 
         //Spiel s = new Spiel();
         //SpielManger sm = new SpielManger(s, new String[]{"Zocker 1", "Zocker 2","Zocker 3","Zocker 4","Zocker 5","Zocker 6","Zocker 7","Zocker 8",}, true);
         //sm.startSpiel();
-        new LoadingScreen();
+        new StartWindow();
         //Window w = new Window();
 
     }
