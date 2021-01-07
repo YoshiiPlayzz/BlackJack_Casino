@@ -1,6 +1,8 @@
 package de.joshua.hatzinger.nico.maurer.jonas.domnick.ui;
 
-import de.joshua.hatzinger.nico.maurer.jonas.domnick.game.Dealer;
+import de.joshua.hatzinger.nico.maurer.jonas.domnick.game.Karte;
+import de.joshua.hatzinger.nico.maurer.jonas.domnick.game.Spiel;
+import de.joshua.hatzinger.nico.maurer.jonas.domnick.game.Spieler;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -8,6 +10,10 @@ import java.awt.*;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class Window extends JFrame {
 
@@ -16,9 +22,18 @@ public class Window extends JFrame {
     private final ImagePanel backgroundImageLabel;
     private final JLabel gut;
     private final JLabel muenze;
+    private JLabel dealer;
+    private Spiel spiel;
+    private java.util.List<JLabel> dealerKartenList;
+    private static Map<Spieler, List<JLabel>> spielerList = new HashMap<>();
+
 
 
     public Window() throws IOException {
+
+        dealerKartenList = new ArrayList<>();
+
+        spiel = new Spiel();
 
         gut = new JLabel("F");
 
@@ -42,8 +57,25 @@ public class Window extends JFrame {
 
 
 
-        Dealer d = new Dealer();
-        System.out.println(d.getKartenSumme());
+
+        Image de = ImageIO.read(Main.class.getResource("/images/Icons/KaoIcon/kaoDealer.png"));
+        Image i1 = ImageIO.read(Main.class.getResource("/images/Kackkarten/Backsite.png"));
+        dealer = new JLabel(new ImageIcon(de.getScaledInstance(70,70,Image.SCALE_SMOOTH)));
+        dealer.setBounds(getWidth()/2 - 250,80,230,100);
+        dealer.setBorder(BorderFactory.createLineBorder(Color.BLACK,2,true));
+        dealer.setText(spiel.getDealer().getName());
+        dealer.setFont(new Font("Arial",Font.BOLD, 25));
+        dealer.setIconTextGap(25);
+
+
+
+        //140
+
+
+        add(dealer);
+        //TODO: Wenn Nico fertig ist den Spielernamen getten.
+
+
 
 
 
@@ -89,6 +121,33 @@ public class Window extends JFrame {
             add(gut);
         }
 
+    }
+
+    public static void addSpieler(Spieler spieler){
+        if(!spielerList.containsKey(spieler)){
+            spielerList.put(spieler, new ArrayList<>());
+        }
+
+    }
+
+    public void addSpielerkarten(Spieler spieler, Karte karte){
+        if (spielerList.containsKey(spieler)) {
+            List<JLabel> cc = spielerList.get(spieler);
+            cc.add(new KartenLabel(karte));
+            spielerList.replace(spieler, cc);
+
+        }
+    }
+
+    public void arrangeJlabel(Spieler spieler){
+        if(spielerList.containsKey(spieler)){
+            for (int i = 0; i < spielerList.get(spieler).size(); i++){
+                spielerList.get(spieler).get(i).setBounds(x, y, 230, 100);
+                //spielerList.get(spieler).get(i) = new ImageIcon(Main.class.getResource("dddd"));
+            }
+
+
+        }
     }
 
 
