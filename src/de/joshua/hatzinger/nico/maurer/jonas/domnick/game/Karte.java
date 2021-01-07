@@ -88,7 +88,7 @@ public enum Karte {
 
     }
 
-    public String kartenPfad() {
+    public String getKartenPfad() {
         String s = "/images/Karten/";
         String kn = toString().replace("_", "").toLowerCase();
 

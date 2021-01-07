@@ -8,8 +8,7 @@ public class KartenLabel extends JLabel {
     private Karte karte;
     public KartenLabel(Karte karte) {
         this.karte = karte;
-        //TODO:Ändern zu Kartenpfad
-        setIcon(new ImageIcon(Main.class.getResource(this.karte.getKartenString())));
+        setIcon(new ImageIcon(Main.class.getResource(this.karte.getKartenPfad())));
     }
 
     public Karte getKarte() {

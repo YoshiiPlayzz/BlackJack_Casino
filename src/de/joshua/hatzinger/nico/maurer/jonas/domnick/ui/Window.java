@@ -141,6 +141,7 @@ public class Window extends JFrame {
 
     public void arrangeJlabel(Spieler spieler){
         if(spielerList.containsKey(spieler)){
+            int x = 0,y = 0;
             for (int i = 0; i < spielerList.get(spieler).size(); i++){
                 spielerList.get(spieler).get(i).setBounds(x, y, 230, 100);
                 //spielerList.get(spieler).get(i) = new ImageIcon(Main.class.getResource("dddd"));
