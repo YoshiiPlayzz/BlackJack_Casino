@@ -3,7 +3,7 @@ package de.joshua.hatzinger.nico.maurer.jonas.domnick.game;
 public class Dealer extends Entity {
 
     public Dealer() {
-        super("Kao der Dealer");
+        super("Dealer");
     }
 
     public boolean takeCard(){
