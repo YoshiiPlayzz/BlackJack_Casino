@@ -9,6 +9,7 @@ public class KartenLabel extends JLabel {
     private final Karte karte;
     private ImageIcon i;
 
+
     public KartenLabel(Karte karte) {
         this.karte = karte;
         this.i = new ImageIcon(Main.class.getResource(this.karte.getKartenPfad()));
@@ -23,15 +24,14 @@ public class KartenLabel extends JLabel {
     //Setzt automatisch die Größe des Bildes auf die Werte width und height
     @Override
     public void setBounds(int x, int y, int width, int height) {
-        setSize(width, height);
         super.setBounds(x, y, width, height);
+        setSize(width, height);
 
     }
 
-    public void setSize(int w, int h) {
-        this.i = new ImageIcon(i.getImage().getScaledInstance(w, h, Image.SCALE_SMOOTH));
-        setIcon(i);
+    public void setSize(int width, int height) {
+        this.i = new ImageIcon(i.getImage().getScaledInstance(width, height, Image.SCALE_SMOOTH));
+        setIcon(this.i);
     }
-
 
 }

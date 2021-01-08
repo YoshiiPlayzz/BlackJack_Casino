@@ -28,6 +28,7 @@ public class Window extends JFrame {
     private final java.util.List<KartenLabel> dealerKartenList;
 
 
+
     public Window() throws IOException {
 
         dealerKartenList = new ArrayList<>();
@@ -55,28 +56,31 @@ public class Window extends JFrame {
         setGuthabenFont(8000000);
 
 
-
-
         Image de = ImageIO.read(Main.class.getResource("/images/Icons/KaoIcon/kaoDealer.png"));
-        Image i1 = ImageIO.read(Main.class.getResource("/images/Kackkarten/Backsite.png"));
-        dealer = new JLabel(new ImageIcon(de.getScaledInstance(70,70,Image.SCALE_SMOOTH)));
-        dealer.setBounds(getWidth()/2 - 250,80,230,100);
-        dealer.setBorder(BorderFactory.createLineBorder(Color.BLACK,2,true));
+        Image i1 = ImageIO.read(Main.class.getResource("/images/Karten/Backsite.png"));
+        dealer = new JLabel(new ImageIcon(de.getScaledInstance(70, 70, Image.SCALE_SMOOTH)));
+        dealer.setBounds(getWidth() / 2 - 250, 80, 230, 100);
+        dealer.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2, true));
         dealer.setText(spiel.getDealer().getName());
-        dealer.setFont(new Font("Arial",Font.BOLD, 25));
+        dealer.setFont(new Font("Arial", Font.BOLD, 25));
         dealer.setIconTextGap(25);
 
 
+        Spieler sp = new Spieler("Test");
+        addSpieler(sp);
+        addSpielerkarten(sp, Karte.HERZ_3);
+        addSpielerkarten(sp, Karte.HERZ_6);
+        addSpielerkarten(sp, Karte.HERZ_9);
+        System.out.println(spielerList.get(sp).get(0).getWidth());
+        arrangeJlabel(sp, -100, 250);
+        int jj = getStartX(sp, getWidth() / 2 - 250);
+        arrangeJlabel(sp, jj, 250);
 
         //140
 
 
         add(dealer);
         //TODO: Wenn Nico fertig ist den Spielernamen getten.
-
-
-
-
 
 
         //Muss als letztes stehen!!!!
@@ -122,14 +126,14 @@ public class Window extends JFrame {
 
     }
 
-    public static void addSpieler(Spieler spieler){
-        if(!spielerList.containsKey(spieler)){
+    public static void addSpieler(Spieler spieler) {
+        if (!spielerList.containsKey(spieler)) {
             spielerList.put(spieler, new ArrayList<>());
         }
 
     }
 
-    public void addSpielerkarten(Spieler spieler, Karte karte){
+    public void addSpielerkarten(Spieler spieler, Karte karte) {
         if (spielerList.containsKey(spieler)) {
             List<KartenLabel> cc = spielerList.get(spieler);
             cc.add(new KartenLabel(karte));
@@ -138,15 +142,49 @@ public class Window extends JFrame {
         }
     }
 
-    public void arrangeJlabel(Spieler spieler){
-        if(spielerList.containsKey(spieler)){
-            int x = 0,y = 0;
-            for (int i = 0; i < spielerList.get(spieler).size(); i++){
-                spielerList.get(spieler).get(i).setBounds(x, y, 230, 100);
-                //spielerList.get(spieler).get(i) = new ImageIcon(Main.class.getResource("dddd"));
+    public void arrangeJlabel(Spieler spieler, int x, int y) {
+        if (spielerList.containsKey(spieler)) {
+            for (int i = 0; i < spielerList.get(spieler).size(); i++) {
+                spielerList.get(spieler).get(i).setBounds(x, y, 135, 204);
+                x += 150;
+                add(spielerList.get(spieler).get(i));
             }
 
 
+        }
+    }
+
+    public void arrangeJLabel(Spieler spieler, int x, int y, int abstand) {
+        if (spielerList.containsKey(spieler)) {
+            for (int i = 0; i < spielerList.get(spieler).size(); i++) {
+                spielerList.get(spieler).get(i).setBounds(x, y, 135, 204);
+                x += abstand;
+                add(spielerList.get(spieler).get(i));
+            }
+
+
+        }
+    }
+
+    public int getStartX(Spieler spieler, int x) {
+        int size;
+        if (spielerList.get(spieler).size() == 1) {
+            return x - spielerList.get(spieler).get(0).getWidth() / 2;
+
+        } else if (spielerList.get(spieler).size() == 2) {
+            size = spielerList.get(spieler).get(0).getWidth() * 2 + 150;
+            return x;
+        } else {
+            for (int i = 0; i < spielerList.get(spieler).size(); i++) {
+                size =+ spielerList.get(spieler).get(i).getWidth();
+                System.out.println(spielerList.get(spieler).size());
+                System.out.println(spielerList.get(spieler).get(i).getWidth());
+                System.out.println(size);
+            }
+            size =+ (spielerList.get(spieler).size() - 1) * 150;
+            System.out.println(size);
+            x -= size / 2;
+            return x;
         }
     }
 
