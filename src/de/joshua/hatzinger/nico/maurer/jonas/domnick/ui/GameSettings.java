@@ -1,7 +1,6 @@
 package de.joshua.hatzinger.nico.maurer.jonas.domnick.ui;
 
 import de.joshua.hatzinger.nico.maurer.jonas.domnick.game.Spieler;
-import de.joshua.hatzinger.nico.maurer.jonas.domnick.utils.Countdown;
 
 import javax.swing.*;
 import java.awt.*;
@@ -10,8 +9,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.io.IOException;
-import java.sql.SQLOutput;
-import java.util.concurrent.TimeUnit;
 
 public class GameSettings extends JFrame {
 
@@ -24,7 +21,7 @@ public class GameSettings extends JFrame {
     public GameSettings() {
 
         setResizable(false);
-        setBackground(Color.GREEN);
+
         setSize(440, 300);
         setLayout(null);
         setFocusable(true);
@@ -35,7 +32,7 @@ public class GameSettings extends JFrame {
         add(name);
 
         label = new JLabel("Name eingeben");
-        label.setBounds(160, 40,100,25);
+        label.setBounds(165, 40,100,25);
         add(label);
 
         spielen = new JButton("Spielen");
@@ -48,9 +45,9 @@ public class GameSettings extends JFrame {
                         label.setText("Name eingeben");
                     }
                 }
-
             }
         });
+        
         spielen.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 name.getText();
@@ -67,9 +64,8 @@ public class GameSettings extends JFrame {
                 }
             }
         });
-        spielen.setBounds(260, 140, 100, 25);
+        spielen.setBounds(220, 140, 100, 25);
         add(spielen);
-
 
         abr = new JButton("Zurück");
         abr.addActionListener(new ActionListener() {
@@ -78,6 +74,7 @@ public class GameSettings extends JFrame {
                new StartWindow();
             }
         });
+
         abr.setBounds(100,140, 100, 25);
         add(abr);
 
