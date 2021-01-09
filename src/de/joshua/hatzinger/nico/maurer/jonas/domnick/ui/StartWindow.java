@@ -7,7 +7,6 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.io.IOException;
 
 public class StartWindow extends JFrame {
 
@@ -51,11 +50,7 @@ public class StartWindow extends JFrame {
 
         spielen.addActionListener(e -> {
             dispose();
-            try {
-                new Window();
-            } catch (IOException ioException) {
-                ioException.printStackTrace();
-            }
+            new GameSettings();
         });
 
         einstellungen = new JButton("Einstellungen");
@@ -63,6 +58,7 @@ public class StartWindow extends JFrame {
         einstellungen.setBackground(new Color(0x15C0DE));
         einstellungen.setForeground(new Color(0xFFFFFF));
         einstellungen.setFont(buttonFont);
+        einstellungen.setBorder(BorderFactory.createLineBorder(new Color(0x15C0DE), 1, true));
 
         einstellungen.addMouseListener(new MouseAdapter() {
             @Override
@@ -82,6 +78,7 @@ public class StartWindow extends JFrame {
         verlassen.setBackground(new Color(0x15C0DE));
         verlassen.setForeground(new Color(0xFFFFFF));
         verlassen.setFont(buttonFont);
+        verlassen.setBorder(BorderFactory.createLineBorder(new Color(0x15C0DE), 1, true));
 
         verlassen.addMouseListener(new MouseAdapter() {
             @Override
@@ -129,6 +126,7 @@ public class StartWindow extends JFrame {
 
         setVisible(true);
 
+        getContentPane().setBackground(Color.WHITE);
 
         add(blackjack);
         add(spielen);

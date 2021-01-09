@@ -32,7 +32,7 @@ public class Countdown {
 
     public void startTimer() {
         started = true;
-        System.out.println("Started countdown");
+
         try {
             Thread.sleep(actual_time);
             ended = true;

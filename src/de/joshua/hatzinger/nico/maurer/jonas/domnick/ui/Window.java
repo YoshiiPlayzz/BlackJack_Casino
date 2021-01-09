@@ -1,14 +1,13 @@
 package de.joshua.hatzinger.nico.maurer.jonas.domnick.ui;
 
-import de.joshua.hatzinger.nico.maurer.jonas.domnick.game.*;
+import de.joshua.hatzinger.nico.maurer.jonas.domnick.game.Karte;
+import de.joshua.hatzinger.nico.maurer.jonas.domnick.game.Spiel;
+import de.joshua.hatzinger.nico.maurer.jonas.domnick.game.Spieler;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ComponentAdapter;
-import java.awt.event.ComponentEvent;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
+import java.awt.event.*;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -35,13 +34,17 @@ public class Window extends JFrame {
 
     public Window() throws IOException {
 
+        dealerKartenList = new ArrayList<>();
+
         spiel = new Spiel();
         Image avatar = ImageIO.read(Main.class.getResource("/images/Icons/UserIcon/avatar.png"));
         spielerLabel = new JLabel(new ImageIcon(avatar.getScaledInstance(70, 70, Image.SCALE_SMOOTH)));
         gut = new JLabel("F");
+
         Image i = new ImageIcon(ImageIO.read(Main.class.getResource("/images/Münze/Münze.png"))).getImage();
+
         muenze = new JLabel(new ImageIcon(i.getScaledInstance(50, 50, Image.SCALE_SMOOTH)));
-        dealerKartenList = new ArrayList<>();
+
         dealerKartenWertLabel = new JLabel();
         spielerKartenWertLabel = new JLabel();
 
@@ -67,6 +70,7 @@ public class Window extends JFrame {
         dealerLabel.setText(spiel.getDealer().getName());
         dealerLabel.setFont(new Font("Arial", Font.BOLD, 25));
         dealerLabel.setIconTextGap(25);
+
 
 
 
@@ -153,10 +157,36 @@ public class Window extends JFrame {
                     setSize(1936, 1056);
                     setLocationRelativeTo(null);
                 }
-
-
             }
         });
+        addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyReleased(KeyEvent e) {
+                if (e.getKeyCode() == KeyEvent.VK_ALT) {
+
+                    KartenLabel l = spielerList.get(sp).get(2);
+                    spielerList.get(sp).get(0).animate(l.getX(), l.getY(), 0.3);
+                    spielerList.get(sp).get(1).animate(l.getX(), l.getY(), 0.3);
+                    spielerList.get(sp).get(3).animate(l.getX(), l.getY(), 0.3);
+                    spielerList.get(sp).get(4).animate(l.getX(), l.getY(), 0.3);
+                    new java.util.Timer().schedule(new java.util.TimerTask() {
+                        @Override
+                        public void run() {
+
+                            for (int i = 1; i < spielerList.get(sp).size(); i++) {
+                                remove(spielerList.get(sp).get(i));
+                            }
+                            spielerList.get(sp).get(0).karteUmdrehen();
+                            spielerList.get(sp).get(0).animate(20, 20, 0.3);
+
+                        }
+                    }, 1000);
+
+                }
+            }
+        });
+
+
     }
 
 
