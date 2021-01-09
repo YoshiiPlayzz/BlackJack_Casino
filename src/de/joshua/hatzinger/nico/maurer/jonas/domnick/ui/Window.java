@@ -180,7 +180,23 @@ public class Window extends JFrame {
             for (int i = 0; i < spielerList.get(spieler).size(); i++) {
                 size += spielerList.get(spieler).get(i).getWidth();
             }
-            size += (spielerList.get(spieler).size() - 1) * 26;
+            size += (spielerList.get(spieler).size() - 1) * 15;
+            x += jLabel.getWidth()/2;
+            return x - size / 2;
+        }
+    }
+
+    public int getStartX(Spieler spieler, JLabel jLabel, int abstand) {
+        int x = jLabel.getX();
+        int size = 0;
+        if (spielerList.get(spieler).size() == 1) {
+            x += jLabel.getWidth()/2;
+            return x - spielerList.get(spieler).get(0).getWidth() / 2;
+        }else {
+            for (int i = 0; i < spielerList.get(spieler).size(); i++) {
+                size += spielerList.get(spieler).get(i).getWidth();
+            }
+            size += (spielerList.get(spieler).size() - 1) * (abstand - spielerList.get(spieler).get(0).getWidth());
             x += jLabel.getWidth()/2;
             return x - size / 2;
         }
