@@ -58,9 +58,11 @@ public class Window extends JFrame {
 
         Image de = ImageIO.read(Main.class.getResource("/images/Icons/KaoIcon/kaoDealer.png"));
         Image i1 = ImageIO.read(Main.class.getResource("/images/Karten/Backsite.png"));
+
         dealer = new JLabel(new ImageIcon(de.getScaledInstance(70, 70, Image.SCALE_SMOOTH)));
         dealer.setBounds(getWidth() / 2 - 250, 80, 230, 100);
         dealer.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2, true));
+
         dealer.setText(spiel.getDealer().getName());
         dealer.setFont(new Font("Arial", Font.BOLD, 25));
         dealer.setIconTextGap(25);
@@ -71,9 +73,11 @@ public class Window extends JFrame {
         addSpielerkarten(sp, Karte.HERZ_3);
         addSpielerkarten(sp, Karte.HERZ_6);
         addSpielerkarten(sp, Karte.HERZ_9);
+        addSpielerkarten(sp, Karte.HERZ_9);
+        addSpielerkarten(sp, Karte.HERZ_9);
         System.out.println(spielerList.get(sp).get(0).getWidth());
         arrangeJlabel(sp, -100, 250);
-        int jj = getStartX(sp, getWidth() / 2 - 250);
+        int jj = getStartX(sp, dealer);
         arrangeJlabel(sp, jj, 250);
 
         //140
@@ -166,25 +170,19 @@ public class Window extends JFrame {
         }
     }
 
-    public int getStartX(Spieler spieler, int x) {
-        int size;
+    public int getStartX(Spieler spieler, JLabel jLabel) {
+        int x = jLabel.getX();
+        int size = 0;
         if (spielerList.get(spieler).size() == 1) {
+            x += jLabel.getWidth()/2;
             return x - spielerList.get(spieler).get(0).getWidth() / 2;
-
-        } else if (spielerList.get(spieler).size() == 2) {
-            size = spielerList.get(spieler).get(0).getWidth() * 2 + 150;
-            return x;
-        } else {
+        }else {
             for (int i = 0; i < spielerList.get(spieler).size(); i++) {
-                size =+ spielerList.get(spieler).get(i).getWidth();
-                System.out.println(spielerList.get(spieler).size());
-                System.out.println(spielerList.get(spieler).get(i).getWidth());
-                System.out.println(size);
+                size += spielerList.get(spieler).get(i).getWidth();
             }
-            size =+ (spielerList.get(spieler).size() - 1) * 150;
-            System.out.println(size);
-            x -= size / 2;
-            return x;
+            size += (spielerList.get(spieler).size() - 1) * 26;
+            x += jLabel.getWidth()/2;
+            return x - size / 2;
         }
     }
 
