@@ -42,7 +42,7 @@ public class GameSettings extends JFrame {
                 if (e.getKeyCode() == KeyEvent.VK_ENTER) {
                     spielen.doClick();
                 } else {
-                    if (label.getText().equals("Name zu kurz")) {
+                    if (label.getText().equals("Name zu kurz") || label.getText().equals("Name zu lang")) {
                         label.setForeground(Color.BLACK);
                         label.setText("Name eingeben:");
                     }
@@ -54,6 +54,9 @@ public class GameSettings extends JFrame {
             name.getText();
             if (name.getText().replace(" ", "").length() <= 3) {
                 label.setText("Name zu kurz");
+                label.setForeground(Color.RED);
+            } else if (name.getText().replace(" ", "").length() > 15) {
+                label.setText("Name zu lang");
                 label.setForeground(Color.RED);
             } else {
                 Window.addSpieler(new Spieler(name.getText()));

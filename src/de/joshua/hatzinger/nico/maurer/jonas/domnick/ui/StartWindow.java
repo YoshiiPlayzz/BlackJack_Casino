@@ -11,7 +11,7 @@ import java.awt.event.MouseEvent;
 public class StartWindow extends JFrame {
 
     private final JButton verlassen;
-    private final JButton einstellungen;
+    private final JButton regeln;
     private final JButton spielen;
     private final JLabel blackjack;
 
@@ -53,23 +53,28 @@ public class StartWindow extends JFrame {
             new GameSettings();
         });
 
-        einstellungen = new JButton("Einstellungen");
-        einstellungen.setBounds(30, 300, 360, 50);
-        einstellungen.setBackground(new Color(0x15C0DE));
-        einstellungen.setForeground(new Color(0xFFFFFF));
-        einstellungen.setFont(buttonFont);
-        einstellungen.setBorder(BorderFactory.createLineBorder(new Color(0x15C0DE), 1, true));
+        regeln = new JButton("Regeln");
+        regeln.setBounds(30, 300, 360, 50);
+        regeln.setBackground(new Color(0x15C0DE));
+        regeln.setForeground(new Color(0xFFFFFF));
+        regeln.setFont(buttonFont);
+        regeln.setBorder(BorderFactory.createLineBorder(new Color(0x15C0DE), 1, true));
 
-        einstellungen.addMouseListener(new MouseAdapter() {
+        regeln.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
-                einstellungen.setBackground(new Color(0x129EB7));
+                regeln.setBackground(new Color(0x129EB7));
             }
 
             @Override
             public void mouseExited(MouseEvent e) {
-                einstellungen.setBackground(new Color(0x15C0DE));
+                regeln.setBackground(new Color(0x15C0DE));
             }
+        });
+
+        regeln.addActionListener(e -> {
+            dispose();
+            new RegelWindow();
         });
 
 
@@ -130,7 +135,7 @@ public class StartWindow extends JFrame {
 
         add(blackjack);
         add(spielen);
-        add(einstellungen);
+        add(regeln);
         add(verlassen);
 
 
