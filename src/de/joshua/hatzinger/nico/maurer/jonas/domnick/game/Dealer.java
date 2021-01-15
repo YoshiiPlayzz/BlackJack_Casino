@@ -1,5 +1,7 @@
 package de.joshua.hatzinger.nico.maurer.jonas.domnick.game;
 
+import de.joshua.hatzinger.nico.maurer.jonas.domnick.ui.KartenLabel;
+
 public class Dealer extends Entity {
 
     public Dealer() {
@@ -15,5 +17,6 @@ public class Dealer extends Entity {
         int[] cardValue = getKartenSumme();
         return (cardValue[0] == 21 || cardValue[1] == 21);
     }
+
 
 }

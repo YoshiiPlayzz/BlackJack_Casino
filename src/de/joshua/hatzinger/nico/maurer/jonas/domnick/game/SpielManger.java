@@ -1,5 +1,7 @@
 package de.joshua.hatzinger.nico.maurer.jonas.domnick.game;
 
+import de.joshua.hatzinger.nico.maurer.jonas.domnick.ui.Window;
+
 import java.util.List;
 import java.util.Scanner;
 
@@ -8,6 +10,7 @@ public class SpielManger {
     private Spiel spiel;
     private Scanner s;
     private boolean konsolenEingabe;
+
 
 
     public SpielManger(Spiel spiel, String[] name, boolean konsolenEingabe) {
@@ -192,6 +195,11 @@ public class SpielManger {
         StringBuilder sb = new StringBuilder("Karten von '" + spiel.getAktuellerSpieler().getName() + "': ");
         for (Karte k : getAktuellerSpielerKarten()) {
             sb.append(k.getKartenString()).append(" ");
+
+
+
+
+
         }
         sb.append("\n");
         int[] summe = spiel.getAktuellerSpieler().getKartenSumme();
