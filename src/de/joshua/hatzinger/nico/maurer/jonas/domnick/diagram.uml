@@ -3,21 +3,22 @@
   <ID>JAVA</ID>
   <OriginalElement />
   <nodes>
-    <node x="0.0" y="1400.0">de.joshua.hatzinger.nico.maurer.jonas.domnick.game.SpielPhase</node>
-    <node x="1566.0" y="0.0">de.joshua.hatzinger.nico.maurer.jonas.domnick.game.SpielManger</node>
-    <node x="0.0" y="1700.0">de.joshua.hatzinger.nico.maurer.jonas.domnick.ui.Main</node>
+    <node x="257.0" y="1400.0">de.joshua.hatzinger.nico.maurer.jonas.domnick.game.SpielPhase</node>
+    <node x="197.0" y="1700.0">de.joshua.hatzinger.nico.maurer.jonas.domnick.ui.Main</node>
+    <node x="1227.0" y="0.0">de.joshua.hatzinger.nico.maurer.jonas.domnick.game.SpielManger</node>
     <node x="720.0" y="360.5">de.joshua.hatzinger.nico.maurer.jonas.domnick.game.Dealer</node>
-    <node x="698.0" y="1400.0">de.joshua.hatzinger.nico.maurer.jonas.domnick.ui.ImagePanel</node>
-    <node x="1227.0" y="0.0">de.joshua.hatzinger.nico.maurer.jonas.domnick.game.SpielManagerConsole</node>
+    <node x="983.0" y="1400.0">de.joshua.hatzinger.nico.maurer.jonas.domnick.ui.ImagePanel</node>
+    <node x="1545.0" y="0.0">de.joshua.hatzinger.nico.maurer.jonas.domnick.game.SpielManagerConsole</node>
+    <node x="698.0" y="1400.0">de.joshua.hatzinger.nico.maurer.jonas.domnick.utils.Countdown</node>
     <node x="531.0" y="305.0">de.joshua.hatzinger.nico.maurer.jonas.domnick.game.Spieler</node>
-    <node x="234.0" y="1400.0">de.joshua.hatzinger.nico.maurer.jonas.domnick.ui.KartenLabel</node>
+    <node x="1248.0" y="1400.0">de.joshua.hatzinger.nico.maurer.jonas.domnick.ui.GameSettings</node>
     <node x="491.0" y="1400.0">de.joshua.hatzinger.nico.maurer.jonas.domnick.game.Farbe</node>
-    <node x="954.25" y="1401.25">de.joshua.hatzinger.nico.maurer.jonas.domnick.ui.GameSettings</node>
-    <node x="1337.0" y="1400.0">de.joshua.hatzinger.nico.maurer.jonas.domnick.ui.RegelWindow</node>
-    <node x="1152.0" y="1400.0">de.joshua.hatzinger.nico.maurer.jonas.domnick.ui.StartWindow</node>
+    <node x="0.0" y="1400.0">de.joshua.hatzinger.nico.maurer.jonas.domnick.ui.KartenLabel</node>
+    <node x="1622.0" y="1400.0">de.joshua.hatzinger.nico.maurer.jonas.domnick.ui.RegelWindow</node>
+    <node x="1437.0" y="1400.0">de.joshua.hatzinger.nico.maurer.jonas.domnick.ui.StartWindow</node>
     <node x="205.0" y="0.0">de.joshua.hatzinger.nico.maurer.jonas.domnick.ui.Window</node>
     <node x="604.25" y="0.0">de.joshua.hatzinger.nico.maurer.jonas.domnick.game.Entity</node>
-    <node x="1547.0" y="1400.0">de.joshua.hatzinger.nico.maurer.jonas.domnick.ui.LoadingScreen</node>
+    <node x="0.0" y="1700.0">de.joshua.hatzinger.nico.maurer.jonas.domnick.ui.LoadingScreen</node>
     <node x="0.0" y="0.0">de.joshua.hatzinger.nico.maurer.jonas.domnick.game.Karte</node>
     <node x="915.0" y="0.0">de.joshua.hatzinger.nico.maurer.jonas.domnick.game.Spiel</node>
   </nodes>
@@ -36,10 +37,8 @@
       <point x="50.5" y="127.5" />
     </edge>
   </edges>
-  <settings layout="Hierarchic Group" zoom="0.8" x="1191.625" y="1447.5741341991336" />
-  <SelectedNodes>
-    <node>de.joshua.hatzinger.nico.maurer.jonas.domnick.ui.GameSettings</node>
-  </SelectedNodes>
+  <settings layout="Hierarchic Group" zoom="0.9" x="762.2222222222222" y="1361.3333333333333" />
+  <SelectedNodes />
   <Categories>
     <Category>Fields</Category>
     <Category>Constructors</Category>

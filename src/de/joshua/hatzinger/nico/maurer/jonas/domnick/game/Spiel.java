@@ -114,6 +114,15 @@ public class Spiel {
         return null;
     }
 
+    public Karte ziehKarteDealer() {
+        if (karten.size() > 0) {
+            Karte k = karten.remove(0);
+            dealer.addKarte(k);
+            return k;
+        }
+        return null;
+    }
+
     public int getSpielerAnzahl() {
         return spieler.size();
     }

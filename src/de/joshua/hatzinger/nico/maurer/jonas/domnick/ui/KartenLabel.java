@@ -26,8 +26,19 @@ public class KartenLabel extends JLabel {
         this.karteVerdeckt = false;
         this.i = new ImageIcon(Main.class.getResource(this.karte.getKartenPfad()));
         this.used = i;
-        if ( verdeckt == true) {
+        if (verdeckt) {
             karteUmdrehen();
+        }
+        setIcon(used);
+    }
+
+    public KartenLabel(Karte karte, boolean verdeckt, int width, int height) {
+        this.karte = karte;
+        this.karteVerdeckt = false;
+        this.i = new ImageIcon(Main.class.getResource(this.karte.getKartenPfad()));
+        this.used = i;
+        if (verdeckt) {
+            karteUmdrehen(width, height);
         }
         setIcon(used);
     }
@@ -41,6 +52,18 @@ public class KartenLabel extends JLabel {
         if (!karteVerdeckt) {
             ImageIcon x = new ImageIcon(Main.class.getResource("/images/Karten/Backsite.png"));
             used = new ImageIcon(x.getImage().getScaledInstance(getWidth(), getHeight(), Image.SCALE_SMOOTH));
+            setIcon(used);
+        } else {
+            used = this.i;
+            setIcon(used);
+        }
+        karteVerdeckt = !karteVerdeckt;
+    }
+
+    public void karteUmdrehen(int width, int height) {
+        if (!karteVerdeckt) {
+            ImageIcon x = new ImageIcon(Main.class.getResource("/images/Karten/Backsite.png"));
+            used = new ImageIcon(x.getImage().getScaledInstance(width, height, Image.SCALE_SMOOTH));
             setIcon(used);
         } else {
             used = this.i;
@@ -97,6 +120,10 @@ public class KartenLabel extends JLabel {
             used = new ImageIcon(used.getImage().getScaledInstance(width, height, Image.SCALE_SMOOTH));
             setIcon(used);
         }
+    }
+
+    public boolean isKarteVerdeckt() {
+        return karteVerdeckt;
     }
 
 }
