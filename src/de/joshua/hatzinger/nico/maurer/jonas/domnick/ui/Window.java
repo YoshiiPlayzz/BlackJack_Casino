@@ -199,7 +199,6 @@ public class Window extends JFrame {
         add(dealerKartenWertLabel);
         add(einsatz);
         add(spielerKartenWertLabel);
-        //TODO: Wenn Nico fertig ist den Spielernamen getten.
 
 
         //Muss als letztes stehen!!!!
@@ -254,6 +253,7 @@ public class Window extends JFrame {
 
     public static void addSpieler(Spieler spieler) {
         if (!spielerList.containsKey(spieler)) {
+            spieler.addGuthaben(8000);
             spielerList.put(spieler, new ArrayList<>());
             spielerListUtil.add(spieler);
         }
@@ -284,8 +284,7 @@ public class Window extends JFrame {
     //Fügt dem Spieler die Kartenobjekte hinzu, die auf dem JFrame angezeigt werden sollen
     public void addSpielerkarten(Spieler spieler, Karte karte) {
         if (spielerList.containsKey(spieler)) {
-            //Muss wieder weggemacht werden. Ist nur für den Test
-            spieler.addKarte(karte);
+
             List<KartenLabel> cc = spielerList.get(spieler);
             cc.add(new KartenLabel(karte));
             spielerList.replace(spieler, cc);
