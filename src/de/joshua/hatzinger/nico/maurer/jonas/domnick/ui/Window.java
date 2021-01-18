@@ -10,6 +10,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -487,6 +489,29 @@ public class Window extends JFrame {
 
     private boolean spielerKartenExists(Spieler spieler) {
         return spielerList.get(spieler).size() != 0;
+    }
+
+    public int einsatzSetzen(Spieler spieler){
+        Map<Spieler, Integer> einsatzInt = new HashMap();
+        boolean exit = true;
+        einsatzInt.put(spieler, 0);
+        addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                while(!(e.getKeyCode() == KeyEvent.VK_ENTER)) {
+                    if (e.getKeyCode() == KeyEvent.VK_UP) {
+                        einsatzInt.replace(spieler, einsatzInt.get(spieler) + 50);
+                    } else if (e.getKeyCode() == KeyEvent.VK_DOWN) {
+                        if (!(einsatzInt.get(spieler) - 50 < 0)) {
+                            einsatzInt.replace(spieler, einsatzInt.get(spieler) - 50);
+                        }
+                    }else if(e.getKeyCode() == KeyEvent.VK_ESCAPE){
+                        einsatzInt.replace(spieler, 0);
+                    }
+                }
+            }
+        });
+        return einsatzInt.get(spieler);
     }
 
 
