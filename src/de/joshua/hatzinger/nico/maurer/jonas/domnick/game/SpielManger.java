@@ -63,12 +63,15 @@ public class SpielManger {
     }
 
 
-    public void dealerZiehen() {
-
+    public void dealerZiehen(Karte karte) {
+        w.addDealerkarten(karte);
+        w.excecuteDealer();
     }
 
-    public void karteZiehen() {
+    public void karteZiehen(Karte karte) {
         w.addSpielerkarten(spiel.getAktuellerSpieler(), spiel.ziehKarte());
+        w.addSpielerkarten(spiel.getAktuellerSpieler(), karte);
+        w.excecuteSpieler(spiel.getAktuellerSpieler());
     }
 
     public void einsatzSetzen() {
