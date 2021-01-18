@@ -468,6 +468,12 @@ public class Window extends JFrame {
         }
     }
 
+    public void excecuteDealer(){
+        arrangeDealerJlabel(-300,-300);
+        int jj = getStartXDealer(dealerLabel);
+        arrangeDealerJlabel(jj,250);
+    }
+
     private boolean spielerExists(Spieler spieler) {
         return spielerList.containsKey(spieler);
     }
