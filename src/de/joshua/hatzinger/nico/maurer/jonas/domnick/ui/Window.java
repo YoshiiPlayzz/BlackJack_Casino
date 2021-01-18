@@ -347,21 +347,6 @@ public class Window extends JFrame {
     }
 
 
-    public void showSpielerEinsatz() {
-        einsatz.setBounds(100, 100, 400, 100);
-        SpinnerNumberModel m = new SpinnerNumberModel();
-        m.setMinimum(100);
-        System.out.println(spielerListUtil.get(0).getGuthaben());
-        m.setMaximum(spielerListUtil.get(0).getGuthaben());
-        m.setStepSize(10);
-        m.addChangeListener(l -> {
-            System.out.println(m.getNumber().intValue());
-        });
-        einsatz.setModel(m);
-
-
-    }
-
 
     public void setNowShownPlayer(Spieler spieler) {
         int x = 0;

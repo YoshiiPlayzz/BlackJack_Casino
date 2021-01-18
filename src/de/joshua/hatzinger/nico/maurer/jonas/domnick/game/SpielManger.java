@@ -2,12 +2,15 @@ package de.joshua.hatzinger.nico.maurer.jonas.domnick.game;
 
 import de.joshua.hatzinger.nico.maurer.jonas.domnick.ui.Window;
 
+import java.util.HashMap;
 import java.util.List;
 
 public class SpielManger {
 
     private final Spiel spiel;
     private final Window w;
+
+    private final HashMap<Spieler, Integer> einsaetze = new HashMap<>();
 
 
     public SpielManger(Spiel spiel, Window w) {
@@ -37,8 +40,16 @@ public class SpielManger {
     }
 
     public void startSpiel() {
+        spiel.setPhase(SpielPhase.EINSAETZE);
+        System.out.println("Einsatz setzen");
 
-
+        for (int i = 0; i < spiel.getSpielerAnzahl(); i++) {
+            Spieler s = spiel.getAktuellerSpieler();
+            int m = w.einsatzSetzen(spiel.getAktuellerSpieler());
+            einsaetze.put(s, m);
+            s.setGuthabenMinus(m);
+            w.setGuthabenFont(s.getGuthaben());
+        }
 
     }
 
@@ -48,7 +59,7 @@ public class SpielManger {
     }
 
     public void karteZiehen() {
-
+        w.addSpielerkarten(spiel.getAktuellerSpieler(), spiel.ziehKarte());
     }
 
     public void einsatzSetzen() {

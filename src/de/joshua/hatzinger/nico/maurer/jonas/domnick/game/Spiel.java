@@ -3,13 +3,13 @@ package de.joshua.hatzinger.nico.maurer.jonas.domnick.game;
 import java.util.*;
 
 public class Spiel {
-    private List<Spieler> spieler;
+    private final List<Spieler> spieler;
     private Spieler aktuellerSpieler;
-    private Map<Entity, Integer> einsatz;
-    private List<Karte> karten;
-    private Dealer dealer;
+    private final Map<Entity, Integer> einsatz;
+    private final List<Karte> karten;
+    private final Dealer dealer;
     private SpielPhase phase;
-    private boolean istZuende = false;
+    private final boolean istZuende = false;
 
     public Spiel() {
         karten = new ArrayList<>();
@@ -49,11 +49,6 @@ public class Spiel {
 
     public void firstCards() {
         aktuellerSpieler = spieler.get(0);
-
-        //TODO: Für Tests Entfernen
-        //aktuellerSpieler.addKarte(Karte.HERZ_ZEHN);
-
-
         for (int i = 0; i < spieler.size() * 2; i++) {
             if (aktuellerSpieler.getInventar().size() < 2) {
                 ziehKarte();
@@ -110,8 +105,13 @@ public class Spiel {
      * Lässt den aktuellenSpieler die oberste Karte aus den karten ziehen
      */
 
-    public void ziehKarte() {
-        aktuellerSpieler.addKarte(karten.remove(0));
+    public Karte ziehKarte() {
+        if (karten.size() > 0) {
+            Karte k = karten.remove(0);
+            aktuellerSpieler.addKarte(k);
+            return k;
+        }
+        return null;
     }
 
     public int getSpielerAnzahl() {
