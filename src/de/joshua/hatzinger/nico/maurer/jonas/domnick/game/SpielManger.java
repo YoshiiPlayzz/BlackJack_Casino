@@ -3,7 +3,6 @@ package de.joshua.hatzinger.nico.maurer.jonas.domnick.game;
 import de.joshua.hatzinger.nico.maurer.jonas.domnick.ui.Window;
 
 import java.util.HashMap;
-import java.util.List;
 
 public class SpielManger {
 
@@ -70,14 +69,13 @@ public class SpielManger {
     }
 
 
-    public void dealerZiehen(Karte karte) {
-        w.addDealerkarten(karte);
+    public void dealerZiehen() {
+        w.addDealerkarten(spiel.ziehKarte());
         w.excecuteDealer();
     }
 
-    public void karteZiehen(Karte karte) {
+    public void karteZiehen() {
         w.addSpielerkarten(spiel.getAktuellerSpieler(), spiel.ziehKarte());
-        w.addSpielerkarten(spiel.getAktuellerSpieler(), karte);
         w.excecuteSpieler(spiel.getAktuellerSpieler());
     }
 
@@ -86,9 +84,6 @@ public class SpielManger {
 
     }
 
-    public List<Karte> getAktuellerSpielerKarten() {
-        return null;
-    }
 
     public void sendAktuellerSpielerKarten() {
 
