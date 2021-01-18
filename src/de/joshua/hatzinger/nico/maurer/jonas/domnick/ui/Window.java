@@ -8,7 +8,8 @@ import de.joshua.hatzinger.nico.maurer.jonas.domnick.game.Spieler;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -19,6 +20,8 @@ public class Window extends JFrame {
 
     //TODO: Spielverlauf
 
+    private static final Map<Spieler, List<KartenLabel>> spielerList = new HashMap<>();
+    private static final java.util.List<Spieler> spielerListUtil = new ArrayList<>();
     private final Spiel spiel;
     private final ImagePanel backgroundImageLabel;
     private final JLabel gut;
@@ -29,10 +32,9 @@ public class Window extends JFrame {
     private final JLabel spielerKartenWertLabel;
     private final JLabel dealerKartenWertLabelValue;
     private final JLabel spielerKartenWertLabelValue;
-    private static final Map<Spieler, List<KartenLabel>> spielerList = new HashMap<>();
-    private static final java.util.List<Spieler> spielerListUtil = new ArrayList<>();
     private final java.util.List<KartenLabel> dealerKartenList;
     private final Dealer dealer = new Dealer();
+    private final JSpinner einsatz;
 
 
     public Window() throws IOException {
@@ -50,13 +52,18 @@ public class Window extends JFrame {
         Image muenzeImage = new ImageIcon(ImageIO.read(Main.class.getResource("/images/Münze/Münze.png"))).getImage();
         muenze = new JLabel(new ImageIcon(muenzeImage.getScaledInstance(50, 50, Image.SCALE_SMOOTH)));
 
-        dealerKartenWertLabel = new JLabel(new ImageIcon(blankCardDealerImage.getScaledInstance(135,204,Image.SCALE_SMOOTH)));
-        spielerKartenWertLabel = new JLabel(new ImageIcon(blankCardPlayerImage.getScaledInstance(135,204,Image.SCALE_SMOOTH)));
-        dealerKartenWertLabel.setBounds(1530,785,135,204);
-        spielerKartenWertLabel.setBounds(1740,785,135,204);
+        dealerKartenWertLabel = new JLabel(new ImageIcon(blankCardDealerImage.getScaledInstance(135, 204, Image.SCALE_SMOOTH)));
+        spielerKartenWertLabel = new JLabel(new ImageIcon(blankCardPlayerImage.getScaledInstance(135, 204, Image.SCALE_SMOOTH)));
+        dealerKartenWertLabel.setBounds(1530, 785, 135, 204);
+        spielerKartenWertLabel.setBounds(1740, 785, 135, 204);
         dealerKartenWertLabelValue = new JLabel("Test1");
         spielerKartenWertLabelValue = new JLabel("Test2");
-
+        SpinnerNumberModel m = new SpinnerNumberModel();
+        m.setMinimum(100);
+        m.setMaximum(800000);
+        m.setStepSize(10);
+        einsatz = new JSpinner(m);
+        einsatz.setValue(100);
         gut.setForeground(Color.WHITE);
 
         //SetUp
@@ -69,7 +76,7 @@ public class Window extends JFrame {
         setIconImage(new ImageIcon(Main.class.getResource("/images/Icons/GameIcon/icon.png")).getImage());
         getContentPane().setLayout(null);
         add(muenze);
-        setGuthabenFont(8000000);
+        setGuthabenFont(8000);
 
         Image de = ImageIO.read(Main.class.getResource("/images/Icons/KaoIcon/kaoDealer.png"));
 
@@ -154,10 +161,9 @@ public class Window extends JFrame {
         add(dealerKartenWertLabelValue);
         add(spielerKartenWertLabelValue);
         add(dealerKartenWertLabel);
+        add(einsatz);
         add(spielerKartenWertLabel);
         //TODO: Wenn Nico fertig ist den Spielernamen getten.
-
-
 
 
         //Muss als letztes stehen!!!!
@@ -210,6 +216,15 @@ public class Window extends JFrame {
 
     }
 
+    public static void addSpieler(Spieler spieler) {
+        if (!spielerList.containsKey(spieler)) {
+            spielerList.put(spieler, new ArrayList<>());
+            spielerListUtil.add(spieler);
+        }
+
+    }
+
+    //Fügt einen Spieler zu dem Spiel hinzu
 
     //Ändert das Guthaben auf der Font
     public void setGuthabenFont(int guthaben) {
@@ -230,14 +245,7 @@ public class Window extends JFrame {
 
     }
 
-    public static void addSpieler(Spieler spieler) {
-        if (!spielerList.containsKey(spieler)) {
-            spielerList.put(spieler, new ArrayList<>());
-            spielerListUtil.add(spieler);
-        }
-
-    }
-
+    //Fügt dem Spieler die Kartenobjekte hinzu, die auf dem JFrame angezeigt werden sollen
     public void addSpielerkarten(Spieler spieler, Karte karte) {
         if (spielerList.containsKey(spieler)) {
             //Muss wieder weggemacht werden. Ist nur für den Test
@@ -249,9 +257,13 @@ public class Window extends JFrame {
         }
     }
 
-    public void addDealerkarten(Karte karte){
+    //Fügt dem Dealer die Kartenobjekte hinzu, die auf dem JFrame angezeigt werden sollen
+    public void addDealerkarten(Karte karte) {
         dealerKartenList.add(new KartenLabel(karte));
     }
+
+
+    //Zentriert die Karten an den Namenslabel
 
     public void arrangeJlabel(Spieler spieler, int x, int y) {
         if (spielerList.containsKey(spieler)) {
@@ -264,6 +276,7 @@ public class Window extends JFrame {
         }
     }
 
+    //Zentriert die Karten an den Namenslabel mit einem bestimmten Abstand
     public void arrangeJLabel(Spieler spieler, int x, int y, int abstand) {
         if (spielerList.containsKey(spieler)) {
             for (int i = 0; i < spielerList.get(spieler).size(); i++) {
@@ -276,26 +289,27 @@ public class Window extends JFrame {
         }
     }
 
-    public void arrangeDealerJlabel(int x, int y){
-        for(int i = 0; i < dealerKartenList.size();i++){
-            dealerKartenList.get(i).setBounds(x,y,135,204);
-            x+= 150;
+    //Zentriert die Karten vom Dealer an den Namenslabel
+    public void arrangeDealerJlabel(int x, int y) {
+        for (int i = 0; i < dealerKartenList.size(); i++) {
+            dealerKartenList.get(i).setBounds(x, y, 135, 204);
+            x += 150;
             add(dealerKartenList.get(i));
         }
     }
 
-    public int getStartXDealer(JLabel jLabel){
+    public int getStartXDealer(JLabel jLabel) {
         int x = jLabel.getX();
         int size = 0;
-        if(dealerKartenList.size()== 1){
-            x += jLabel.getWidth()/2;
-            return x - 135/2;
-        }else {
-            for(int i = 0; i < dealerKartenList.size(); i++){
-                size+= dealerKartenList.get(i).getWidth();
+        if (dealerKartenList.size() == 1) {
+            x += jLabel.getWidth() / 2;
+            return x - 135 / 2;
+        } else {
+            for (int i = 0; i < dealerKartenList.size(); i++) {
+                size += dealerKartenList.get(i).getWidth();
             }
             size += (dealerKartenList.size() - 1) * 15;
-            x += jLabel.getWidth()/2;
+            x += jLabel.getWidth() / 2;
             return x - size / 2;
         }
     }
@@ -304,14 +318,14 @@ public class Window extends JFrame {
         int x = jLabel.getX();
         int size = 0;
         if (spielerList.get(spieler).size() == 1) {
-            x += jLabel.getWidth()/2;
+            x += jLabel.getWidth() / 2;
             return x - spielerList.get(spieler).get(0).getWidth() / 2;
-        }else {
+        } else {
             for (int i = 0; i < spielerList.get(spieler).size(); i++) {
                 size += spielerList.get(spieler).get(i).getWidth();
             }
             size += (spielerList.get(spieler).size() - 1) * 15;
-            x += jLabel.getWidth()/2;
+            x += jLabel.getWidth() / 2;
             return x - size / 2;
         }
     }
@@ -320,19 +334,36 @@ public class Window extends JFrame {
         int x = jLabel.getX();
         int size = 0;
         if (spielerList.get(spieler).size() == 1) {
-            x += jLabel.getWidth()/2;
+            x += jLabel.getWidth() / 2;
             return x - spielerList.get(spieler).get(0).getWidth() / 2;
-        }else {
+        } else {
             for (int i = 0; i < spielerList.get(spieler).size(); i++) {
                 size += spielerList.get(spieler).get(i).getWidth();
             }
             size += (spielerList.get(spieler).size() - 1) * (abstand - spielerList.get(spieler).get(0).getWidth());
-            x += jLabel.getWidth()/2;
+            x += jLabel.getWidth() / 2;
             return x - size / 2;
         }
     }
 
-    public void setNowShownPlayer(Spieler spieler){
+
+    public void showSpielerEinsatz() {
+        einsatz.setBounds(100, 100, 400, 100);
+        SpinnerNumberModel m = new SpinnerNumberModel();
+        m.setMinimum(100);
+        System.out.println(spielerListUtil.get(0).getGuthaben());
+        m.setMaximum(spielerListUtil.get(0).getGuthaben());
+        m.setStepSize(10);
+        m.addChangeListener(l -> {
+            System.out.println(m.getNumber().intValue());
+        });
+        einsatz.setModel(m);
+
+
+    }
+
+
+    public void setNowShownPlayer(Spieler spieler) {
         int x = 0;
         spielerLabel.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2, true));
         spielerLabel.setText(spieler.getName());
@@ -342,10 +373,10 @@ public class Window extends JFrame {
         FontMetrics m = getFontMetrics(f);
         spielerLabel.setBounds(-100, 500, m.stringWidth(spieler.getName()) + spielerLabel.getIcon().getIconWidth() + 25 + 50, 100);
 
-        if(spielerLabel.getWidth() < dealerLabel.getWidth()){
+        if (spielerLabel.getWidth() < dealerLabel.getWidth()) {
             x = (dealerLabel.getWidth() - spielerLabel.getWidth()) / 2;
             x += dealerLabel.getX();
-        }else{
+        } else {
             x = (spielerLabel.getWidth() - dealerLabel.getWidth()) / 2;
             x = dealerLabel.getX() - x;
         }
@@ -354,7 +385,7 @@ public class Window extends JFrame {
         spielerLabel.setIconTextGap(25);
     }
 
-    public void showCardValueSpieler(Spieler spieler){
+    public void showCardValueSpieler(Spieler spieler) {
         //TODO: Spielmanager Kartenwerte bekommen. Im Spielmanager bereits aussortieren. Nur dir passenden Werte. Immer den größeren außer er ist über 21
         Font f = new Font("Arial", Font.BOLD, 25);
         FontMetrics m = getFontMetrics(f);
@@ -365,12 +396,12 @@ public class Window extends JFrame {
                 spieler.getKartenSumme()) {
             System.out.println(c);
 
-            if(c > cc && c <= 21){
+            if (c > cc && c <= 21) {
                 cc = c;
                 System.out.println("0");
-            }else if(c < cc && c <= 21){
+            } else if (c < cc && c <= 21) {
                 System.out.println("1");
-            }else{
+            } else {
                 cc = c;
                 System.out.println("2");
             }
@@ -378,7 +409,7 @@ public class Window extends JFrame {
         spielerKartenWertLabelValue.setText(String.valueOf(cc));
     }
 
-    public void showCardValueDealer(){
+    public void showCardValueDealer() {
         Font f = new Font("Arial", Font.BOLD, 25);
         FontMetrics m = getFontMetrics(f);
         dealerKartenWertLabelValue.setFont(f);
@@ -387,51 +418,58 @@ public class Window extends JFrame {
                 dealer.getKartenSumme()) {
             System.out.println(c);
 
-            if(c > cc && c <= 21){
+            if (c > cc && c <= 21) {
                 cc = c;
                 System.out.println("0");
-            }else if(c < cc && c <= 21){
+            } else if (c < cc && c <= 21) {
                 System.out.println("1");
-            }else{
+            } else {
                 cc = c;
                 System.out.println("2");
             }
         }
         dealerKartenWertLabelValue.setText(String.valueOf(cc));
-        dealerKartenWertLabelValue.setBounds(getBlankXPos(dealerKartenWertLabel, dealerKartenWertLabelValue, f), 850, m.stringWidth(dealerKartenWertLabelValue.getText()),m.getHeight());
+        dealerKartenWertLabelValue.setBounds(getBlankXPos(dealerKartenWertLabel, dealerKartenWertLabelValue, f), 850, m.stringWidth(dealerKartenWertLabelValue.getText()), m.getHeight());
 
     }
 
 
-
-    public int getBlankXPos(JLabel jLabelFrame, JLabel jLabelValue, Font f){
-        int x = jLabelFrame.getX() + jLabelFrame.getWidth()/2;
+    public int getBlankXPos(JLabel jLabelFrame, JLabel jLabelValue, Font f) {
+        int x = jLabelFrame.getX() + jLabelFrame.getWidth() / 2;
         FontMetrics m = getFontMetrics(f);
         x = x - m.stringWidth(jLabelValue.getText()) / 2;
         return x;
     }
 
 
-    public int getXAnimation(JPanel jpanel){
+    public int getXAnimation(JPanel jpanel) {
         return (jpanel.getX() + jpanel.getWidth() / 2) - (230 / 2);
     }
 
-    public void refreshBck(){
+    public void refreshBck() {
         remove(backgroundImageLabel);
         add(backgroundImageLabel);
     }
 
-    public void excecuteSpieler(Spieler spieler){
-        setNowShownPlayer(spieler);
-        arrangeJlabel(spieler,-300,-300);
-        int jj = getStartX(spieler, spielerLabel);
-        arrangeJlabel(spieler, jj, 566);
-        spielerList.get(spieler).get(0).setVisible(true);
-
+    public void excecuteSpieler(Spieler spieler) {
+        if (spielerExists(spieler) && spielerKartenExists(spieler)) {
+            setNowShownPlayer(spieler);
+            arrangeJlabel(spieler, -300, -300);
+            int jj = getStartX(spieler, spielerLabel);
+            arrangeJlabel(spieler, jj, 566);
+            spielerList.get(spieler).get(0).setVisible(true);
+        } else {
+            System.out.println("Spieler wurde nicht gefunden!");
+        }
     }
 
+    private boolean spielerExists(Spieler spieler) {
+        return spielerList.containsKey(spieler);
+    }
 
-
+    private boolean spielerKartenExists(Spieler spieler) {
+        return spielerList.get(spieler).size() != 0;
+    }
 
 
 }

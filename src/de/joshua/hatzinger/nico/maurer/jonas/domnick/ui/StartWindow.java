@@ -21,14 +21,17 @@ public class StartWindow extends JFrame {
         setIconImage(new ImageIcon(Main.class.getResource("/images/Icons/GameIcon/icon.png")).getImage());
 
         //Zentrierter Text mit Schriftart 'Arial' auf Schriftgröße 50
-        blackjack = new JLabel("Blackjack", SwingConstants.CENTER);
-        blackjack.setFont(new Font("Arial", Font.BOLD, 50));
-        blackjack.setBounds(0, 10, 440, 60);
+
+
+        ImageIcon header = new ImageIcon(new ImageIcon(Main.class.getResource("/images/header.png")).getImage().getScaledInstance(240, 120, Image.SCALE_SMOOTH));
+        blackjack = new JLabel(header);
+        //blackjack.setFont(new Font("Arial", Font.BOLD, 50));
+        blackjack.setBounds(0, 10, 420, 120);
 
         Font buttonFont = new Font("Arial Black", Font.BOLD, 36);
 
         //Knöpfe
-        spielen = new JButton("SPIELEN");
+        spielen = new JButton("Spielen");
         spielen.setBounds(30, 160, 360, 50);
 
         spielen.setBorder(BorderFactory.createLineBorder(new Color(0x15C0DE), 1, true));

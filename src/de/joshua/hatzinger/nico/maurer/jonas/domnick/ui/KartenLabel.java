@@ -53,7 +53,6 @@ public class KartenLabel extends JLabel {
             int px = (int) (xDiff / delay / 10);
             int py = (int) (yDiff / delay / 10);
 
-            //Minus wenn x größer als aktuelle x Position ist
             setBounds(getX() - px, getY() - py, getWidth(), getHeight());
 
         });
