@@ -10,6 +10,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -35,10 +37,28 @@ public class Window extends JFrame {
     private final java.util.List<KartenLabel> dealerKartenList;
     private final Dealer dealer = new Dealer();
     private final JSpinner einsatz;
+    private final JButton surrender;
+    private final JButton halten;
+    private final JButton ziehen;
+    private final JButton Verdoppeln;
 
 
     public Window() throws IOException {
 
+        surrender = new JButton(new ImageIcon(new ImageIcon(Main.class.getResource("/images/FrankreichFahne/FrankreichFlagge2.png")).getImage().getScaledInstance(40,40,Image.SCALE_SMOOTH)));
+        halten = new JButton(new ImageIcon(new ImageIcon(Main.class.getResource("/images/Buttons/715399.png")).getImage().getScaledInstance(40,40,Image.SCALE_SMOOTH)));
+        ziehen = new JButton(new ImageIcon(new ImageIcon(Main.class.getResource("/images/Buttons/2182944.png")).getImage().getScaledInstance(40, 40, Image.SCALE_SMOOTH)));
+        Verdoppeln = new JButton(new ImageIcon(new ImageIcon(Main.class.getResource("/images/Buttons/x2-512.png")).getImage().getScaledInstance(40,40,Image.SCALE_SMOOTH)));
+
+        surrender.setBounds(50,930,40,40);
+        halten.setBounds(100,930,40,40);
+        ziehen.setBounds(150,930,40,40);
+        Verdoppeln.setBounds(200,930,40,40);
+
+        add(surrender);
+        add(halten);
+        add(ziehen);
+        add(Verdoppeln);
 
         dealerKartenList = new ArrayList<>();
 
@@ -454,6 +474,29 @@ public class Window extends JFrame {
 
     private boolean spielerKartenExists(Spieler spieler) {
         return spielerList.get(spieler).size() != 0;
+    }
+
+    public int einsatzSetzen(Spieler spieler){
+        Map<Spieler, Integer> einsatzInt = new HashMap();
+        boolean exit = true;
+        einsatzInt.put(spieler, 0);
+        addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                while(!(e.getKeyCode() == KeyEvent.VK_ENTER)) {
+                    if (e.getKeyCode() == KeyEvent.VK_UP) {
+                        einsatzInt.replace(spieler, einsatzInt.get(spieler) + 50);
+                    } else if (e.getKeyCode() == KeyEvent.VK_DOWN) {
+                        if (!(einsatzInt.get(spieler) - 50 < 0)) {
+                            einsatzInt.replace(spieler, einsatzInt.get(spieler) - 50);
+                        }
+                    }else if(e.getKeyCode() == KeyEvent.VK_ESCAPE){
+                        einsatzInt.replace(spieler, 0);
+                    }
+                }
+            }
+        });
+        return einsatzInt.get(spieler);
     }
 
 
