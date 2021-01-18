@@ -477,8 +477,7 @@ public class Window extends JFrame {
     }
 
     public int einsatzSetzen(Spieler spieler){
-        Map<Spieler, Integer> einsatzInt = new HashMap();
-        boolean exit = true;
+        Map<Spieler, Integer> einsatzInt = new HashMap<>();
         einsatzInt.put(spieler, 0);
         addKeyListener(new KeyAdapter() {
             @Override
