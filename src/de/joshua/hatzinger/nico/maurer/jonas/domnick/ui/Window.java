@@ -297,8 +297,8 @@ public class Window extends JFrame {
     }
 
     //Fügt dem Dealer die Kartenobjekte hinzu, die auf dem JFrame angezeigt werden sollen
-    public void addDealerkarten(Karte karte) {
-        dealerKartenList.add(new KartenLabel(karte));
+    public void addDealerkarten(Karte karte, boolean verdeckt) {
+        dealerKartenList.add(new KartenLabel(karte, verdeckt));
     }
 
 
@@ -385,21 +385,6 @@ public class Window extends JFrame {
         }
     }
 
-
-    public void showSpielerEinsatz() {
-        einsatz.setBounds(100, 100, 400, 100);
-        SpinnerNumberModel m = new SpinnerNumberModel();
-        m.setMinimum(100);
-        System.out.println(spielerListUtil.get(0).getGuthaben());
-        m.setMaximum(spielerListUtil.get(0).getGuthaben());
-        m.setStepSize(10);
-        m.addChangeListener(l -> {
-            System.out.println(m.getNumber().intValue());
-        });
-        einsatz.setModel(m);
-
-
-    }
 
 
     public void setNowShownPlayer(Spieler spieler) {
@@ -502,6 +487,12 @@ public class Window extends JFrame {
         }
     }
 
+    public void excecuteDealer(){
+        arrangeDealerJlabel(-300,-300);
+        int jj = getStartXDealer(dealerLabel);
+        arrangeDealerJlabel(jj,250);
+    }
+
     private boolean spielerExists(Spieler spieler) {
         return spielerList.containsKey(spieler);
     }
@@ -511,8 +502,7 @@ public class Window extends JFrame {
     }
 
     public int einsatzSetzen(Spieler spieler){
-        Map<Spieler, Integer> einsatzInt = new HashMap();
-        boolean exit = true;
+        Map<Spieler, Integer> einsatzInt = new HashMap<>();
         einsatzInt.put(spieler, 0);
         addKeyListener(new KeyAdapter() {
             @Override
