@@ -69,8 +69,8 @@ public class SpielManger {
     }
 
 
-    public void dealerZiehen() {
-        w.addDealerkarten(spiel.ziehKarte());
+    public void dealerZiehen(boolean verdeckt) {
+        w.addDealerkarten(spiel.ziehKarte(), verdeckt);
         w.excecuteDealer();
     }
 

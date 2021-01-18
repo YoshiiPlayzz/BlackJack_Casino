@@ -278,8 +278,8 @@ public class Window extends JFrame {
     }
 
     //Fügt dem Dealer die Kartenobjekte hinzu, die auf dem JFrame angezeigt werden sollen
-    public void addDealerkarten(Karte karte) {
-        dealerKartenList.add(new KartenLabel(karte));
+    public void addDealerkarten(Karte karte, boolean verdeckt) {
+        dealerKartenList.add(new KartenLabel(karte, verdeckt));
     }
 
 

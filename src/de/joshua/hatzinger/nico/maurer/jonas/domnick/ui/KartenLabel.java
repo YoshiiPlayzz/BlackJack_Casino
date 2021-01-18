@@ -21,6 +21,17 @@ public class KartenLabel extends JLabel {
         setIcon(used);
     }
 
+    public KartenLabel(Karte karte, boolean verdeckt) {
+        this.karte = karte;
+        this.karteVerdeckt = false;
+        this.i = new ImageIcon(Main.class.getResource(this.karte.getKartenPfad()));
+        this.used = i;
+        if ( verdeckt == true) {
+            karteUmdrehen();
+        }
+        setIcon(used);
+    }
+
     public Karte getKarte() {
         return karte;
     }
