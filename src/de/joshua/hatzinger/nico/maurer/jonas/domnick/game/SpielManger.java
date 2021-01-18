@@ -56,8 +56,15 @@ public class SpielManger {
         for (int x = 0; x < 2; x++) {
             for (int i = 0; i < spiel.getSpielerAnzahl(); i++) {
                 karteZiehen();
+                spiel.naechsterSpieler();
             }
             dealerZiehen();
+        }
+        System.out.println("Alle Spieler und der Dealer haben 2 Karten bekommen");
+        while (spiel.istJederFertig()) {
+            spiel.toErstenSpieler();
+
+
         }
 
     }

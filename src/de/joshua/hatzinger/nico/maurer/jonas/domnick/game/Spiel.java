@@ -4,12 +4,12 @@ import java.util.*;
 
 public class Spiel {
     private final List<Spieler> spieler;
-    private Spieler aktuellerSpieler;
     private final Map<Entity, Integer> einsatz;
     private final List<Karte> karten;
     private final Dealer dealer;
-    private SpielPhase phase;
     private final boolean istZuende = false;
+    private Spieler aktuellerSpieler;
+    private SpielPhase phase;
 
     public Spiel() {
         karten = new ArrayList<>();
@@ -136,8 +136,8 @@ public class Spiel {
     }
 
 
-    public int getSpielerEinsatz(){
-     return einsatz.get(aktuellerSpieler);
+    public int getSpielerEinsatz() {
+        return einsatz.get(aktuellerSpieler);
     }
 
     public void naechsterZug() {
@@ -147,9 +147,9 @@ public class Spiel {
         }
     }
 
-    public void naechsterSpieler(){
+    public void naechsterSpieler() {
         if (spieler.indexOf(aktuellerSpieler) + 2 > spieler.size()) {
-            aktuellerSpieler = spieler.get(0);
+            toErstenSpieler();
         } else {
             aktuellerSpieler = spieler.get(spieler.indexOf(aktuellerSpieler) + 1);
         }
@@ -158,7 +158,7 @@ public class Spiel {
     public boolean istJederFertig() {
         int fertig = 0;
         for (Spieler s : spieler) {
-            if(s.istFertig()){
+            if (s.istFertig()) {
                 fertig++;
             }
         }
