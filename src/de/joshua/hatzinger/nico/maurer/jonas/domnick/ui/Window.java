@@ -41,6 +41,9 @@ public class Window extends JFrame {
     private final JButton halten;
     private final JButton ziehen;
     private final JButton Verdoppeln;
+    private final KartenLabel Kartenstapel;
+    private final KartenLabel Kartenstapel2;
+    private final KartenLabel Kartenstapel3;
 
 
     public Window() throws IOException {
@@ -59,6 +62,22 @@ public class Window extends JFrame {
         add(halten);
         add(ziehen);
         add(Verdoppeln);
+
+        Kartenstapel = new KartenLabel(Karte.HERZ_2);
+        Kartenstapel2 = new KartenLabel(Karte.HERZ_2);
+        Kartenstapel3 = new KartenLabel(Karte.HERZ_2);
+
+        Kartenstapel.setBounds(1120,90,135, 204);
+        Kartenstapel.karteUmdrehen();
+        add(Kartenstapel);
+
+        Kartenstapel2.setBounds(1125,95,135, 204);
+        Kartenstapel2.karteUmdrehen();
+        add(Kartenstapel2);
+
+        Kartenstapel3.setBounds(1130,100,135, 204);
+        Kartenstapel3.karteUmdrehen();
+        add(Kartenstapel3);
 
         dealerKartenList = new ArrayList<>();
 
