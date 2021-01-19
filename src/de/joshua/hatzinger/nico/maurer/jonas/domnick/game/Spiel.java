@@ -4,7 +4,7 @@ import java.util.*;
 
 public class Spiel {
     private final List<Spieler> spieler;
-    private final Map<Entity, Integer> einsatz;
+    private final Map<Spieler, Integer> einsatz;
     private final List<Karte> karten;
     private final Dealer dealer;
     private final boolean istZuende = false;
@@ -83,6 +83,14 @@ public class Spiel {
         }
     }
 
+    public boolean jederVerloren() {
+        int c = 0;
+        for (Spieler s : spieler) {
+            if (!s.hatGewonnen() && s.istFertig()) c++;
+        }
+        return c == spieler.size();
+    }
+
 
     public boolean aktuellerSpielerEinsatzSetzen(int einsatz) {
         if (!this.einsatz.containsKey(aktuellerSpieler)) {
@@ -146,13 +154,20 @@ public class Spiel {
 
 
     public int getSpielerEinsatz() {
-        return einsatz.get(aktuellerSpieler);
+        if (einsatz.containsKey(aktuellerSpieler)) {
+            return einsatz.get(aktuellerSpieler);
+        } else {
+            return -1;
+        }
     }
 
     public void naechsterZug() {
+        aktuellerSpieler.setFertig();
         if (spieler.indexOf(aktuellerSpieler) + 2 <= getSpielerAnzahl()) {
-            aktuellerSpieler.setFertig();
+
             aktuellerSpieler = spieler.get(spieler.indexOf(aktuellerSpieler) + 1);
+        } else {
+            setPhase(SpielPhase.DEALER_ZUG);
         }
     }
 
@@ -285,7 +300,7 @@ public class Spiel {
         return karten;
     }
 
-    public Map<Entity, Integer> getEinsatz() {
+    public Map<Spieler, Integer> getEinsatz() {
         return einsatz;
     }
 }

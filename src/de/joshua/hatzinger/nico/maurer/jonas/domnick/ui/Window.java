@@ -10,10 +10,9 @@ import java.awt.event.ComponentEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+import java.util.Timer;
+import java.util.*;
 
 public class Window extends JFrame {
 
@@ -31,7 +30,6 @@ public class Window extends JFrame {
     private final JLabel dealerKartenWertLabelValue;
     private final JLabel spielerKartenWertLabelValue;
     private final java.util.List<KartenLabel> dealerKartenList;
-    private final Dealer dealer = new Dealer();
     private final JSpinner einsatz;
     private final JButton surrender;
     private final JButton halten;
@@ -41,18 +39,59 @@ public class Window extends JFrame {
     private final KartenLabel Kartenstapel;
     private final KartenLabel Kartenstapel2;
     private final KartenLabel Kartenstapel3;
+    private final HashMap<Spieler, Integer> temp_einsatz = new HashMap<>();
 
 
     public Window() throws IOException {
-
+        sm = new SpielManger(new Spiel(), this);
         surrender = new JButton(new ImageIcon(new ImageIcon(Main.class.getResource("/images/FrankreichFahne/FrankreichFlagge2.png")).getImage().getScaledInstance(40, 40, Image.SCALE_SMOOTH)));
         halten = new JButton(new ImageIcon(new ImageIcon(Main.class.getResource("/images/Buttons/715399.png")).getImage().getScaledInstance(40, 40, Image.SCALE_SMOOTH)));
         ziehen = new JButton(new ImageIcon(new ImageIcon(Main.class.getResource("/images/Buttons/2182944.png")).getImage().getScaledInstance(40, 40, Image.SCALE_SMOOTH)));
         Verdoppeln = new JButton(new ImageIcon(new ImageIcon(Main.class.getResource("/images/Buttons/x2-512.png")).getImage().getScaledInstance(40, 40, Image.SCALE_SMOOTH)));
 
-        surrender.setBounds(50, 930, 40, 40);
+        surrender.setToolTipText("Aufgeben/Surrender");
+        halten.setToolTipText("Karten halten");
+        ziehen.setToolTipText("Karte ziehen");
+        Verdoppeln.setToolTipText("Einsatz verdoppeln");
+
+        surrender.setVisible(false);
+        halten.setVisible(false);
+        ziehen.setVisible(false);
+        Verdoppeln.setVisible(false);
+
+        surrender.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
+        halten.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
+        ziehen.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
+        Verdoppeln.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
+
+        surrender.addActionListener(l -> {
+
+            if (sm.getSpiel().getPhase().equals(SpielPhase.SPIELSTART)) {
+                sm.surrender();
+            } else {
+                JOptionPane.showMessageDialog(this, "Wait that's illegal");
+            }
+        });
+
+        halten.addActionListener(l -> {
+            sm.halten();
+        });
+        ziehen.addActionListener(l -> {
+            sm.karteZiehen();
+
+
+        });
+        Verdoppeln.addActionListener(l -> {
+            if (sm.getSpiel().getPhase().equals(SpielPhase.SPIELSTART)) {
+                sm.doppeln();
+            } else {
+                JOptionPane.showMessageDialog(this, "Wait that's illegal");
+            }
+        });
+
+        ziehen.setBounds(50, 930, 40, 40);
         halten.setBounds(100, 930, 40, 40);
-        ziehen.setBounds(150, 930, 40, 40);
+        surrender.setBounds(150, 930, 40, 40);
         Verdoppeln.setBounds(200, 930, 40, 40);
 
 
@@ -75,7 +114,6 @@ public class Window extends JFrame {
         dealerKartenList = new ArrayList<>();
 
 
-        sm = new SpielManger(new Spiel(), this);
         Image avatar = ImageIO.read(Main.class.getResource("/images/Icons/UserIcon/avatar.png"));
         spielerLabel = new JLabel(new ImageIcon(avatar.getScaledInstance(70, 70, Image.SCALE_SMOOTH)));
         gut = new JLabel("F");
@@ -199,6 +237,18 @@ public class Window extends JFrame {
         add(dealerKartenWertLabel);
         add(einsatz);
         add(spielerKartenWertLabel);
+
+        addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                //TODO: Abbrechen
+                if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
+
+                }
+            }
+
+
+        });
 
 
         //Muss als letztes stehen!!!!
@@ -387,7 +437,6 @@ public class Window extends JFrame {
     }
 
 
-
     public void setNowShownPlayer(Spieler spieler) {
         int x = 0;
         spielerLabel.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2, true));
@@ -458,6 +507,9 @@ public class Window extends JFrame {
 
     }
 
+
+    //Zeigt die aufgedeckten Karten vom Dealer an
+
     public void showCardValueDealerVerdeckt() {
         Font f = new Font("Arial", Font.BOLD, 25);
         FontMetrics m = getFontMetrics(f);
@@ -496,7 +548,79 @@ public class Window extends JFrame {
     }
 
     public void spielStart() {
+        surrender.setVisible(true);
+        halten.setVisible(true);
+        ziehen.setVisible(true);
+        Verdoppeln.setVisible(true);
+        sm.getSpiel().setPhase(SpielPhase.SPIELSTART);
+        java.util.Timer t = new Timer();
+        t.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                System.out.println("Tick");
+                for (Spieler s : sm.getSpiel().getSpieler()) {
 
+                    if (s.getKartenSumme()[0] == 21 || s.getKartenSumme()[1] == 21) {
+                        s.setGewinner();
+                        sm.getSpiel().naechsterZug();
+                    } else if (s.getKartenSumme()[0] > 21 && s.getKartenSumme()[1] > 21) {
+                        sm.getSpiel().naechsterZug();
+                        System.out.println("Der Spieler hat verloren");
+
+                    }
+
+                }
+                if (sm.getSpiel().istJederFertig()) {
+                    sm.getSpiel().setPhase(SpielPhase.DEALER_ZUG);
+                    dealerZug();
+                    cancel();
+
+                }
+            }
+        }, 1000, 1000);
+
+
+    }
+
+    public void dealerZug() {
+        if (sm.getSpiel().getPhase().equals(SpielPhase.DEALER_ZUG)) {
+
+            Dealer d = sm.getSpiel().getDealer();
+            for (KartenLabel k : dealerKartenList) {
+                if (k.isKarteVerdeckt()) {
+                    k.karteUmdrehen();
+                    k.setBounds(k.getX(), k.getY(), 135, 204);
+                    showCardValueDealer();
+                }
+            }
+            if (!sm.getSpiel().jederVerloren()) {
+
+
+                while (d.takeCard()) {
+                    sm.dealerZiehen(false);
+                }
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+
+
+            sm.ende();
+        }
+    }
+
+    public void reset() {
+        for (Map.Entry<Spieler, List<KartenLabel>> e : spielerList.entrySet()) {
+            for (KartenLabel l : e.getValue()) {
+                remove(l);
+            }
+            e.getKey().getInventar().clear();
+            sm.getSpiel().getDealer().getInventar().clear();
+
+        }
+        sm.startSpiel();
     }
 
 
@@ -507,7 +631,7 @@ public class Window extends JFrame {
             int jj = getStartX(spieler, spielerLabel);
             arrangeJlabel(spieler, jj, 566);
             spielerList.get(spieler).get(0).setVisible(true);
-
+            showCardValueSpieler(spieler);
 
             refreshBck();
         } else {
@@ -532,25 +656,9 @@ public class Window extends JFrame {
     }
 
     public int einsatzSetzen(Spieler spieler) {
-        Map<Spieler, Integer> einsatzInt = new HashMap<>();
-        einsatzInt.put(spieler, 0);
-        addKeyListener(new KeyAdapter() {
-            @Override
-            public void keyTyped(KeyEvent e) {
-                while (!(e.getKeyCode() == KeyEvent.VK_ENTER)) {
-                    if (e.getKeyCode() == KeyEvent.VK_UP) {
-                        einsatzInt.replace(spieler, einsatzInt.get(spieler) + 50);
-                    } else if (e.getKeyCode() == KeyEvent.VK_DOWN) {
-                        if (!(einsatzInt.get(spieler) - 50 < 0)) {
-                            einsatzInt.replace(spieler, einsatzInt.get(spieler) - 50);
-                        }
-                    } else if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
-                        einsatzInt.replace(spieler, 0);
-                    }
-                }
-            }
-        });
-        return einsatzInt.get(spieler);
+
+
+        return 0;
     }
 
     public SpielManger getSpielManager() {

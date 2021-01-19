@@ -2,6 +2,7 @@ package de.joshua.hatzinger.nico.maurer.jonas.domnick.game;
 
 import de.joshua.hatzinger.nico.maurer.jonas.domnick.ui.Window;
 
+import javax.swing.*;
 import java.util.HashMap;
 
 public class SpielManger {
@@ -31,7 +32,7 @@ public class SpielManger {
             }
             for (int i = 0; i < c; i++) {
                 Spieler spieler = new Spieler(name[i]);
-                spieler.setGuthaben(8000);
+
                 spiel.addSpieler(spieler);
                 Window.addSpieler(spieler);
             }
@@ -40,7 +41,11 @@ public class SpielManger {
 
     public void startSpiel() {
         for (Spieler s : w.getSpielerListUtil()) {
-            spiel.addSpieler(s);
+
+            if (!spiel.getSpieler().contains(s)) {
+                s.setGuthaben(8000);
+                spiel.addSpieler(s);
+            }
         }
         spiel.toErstenSpieler();
         spiel.setPhase(SpielPhase.EINSAETZE);
@@ -48,10 +53,44 @@ public class SpielManger {
 
         for (int i = 0; i < spiel.getSpielerAnzahl(); i++) {
             Spieler s = spiel.getSpieler().get(i);
-            int m = w.einsatzSetzen(s);
-            einsaetze.put(s, m);
-            s.setGuthabenMinus(m);
-            w.setGuthabenFont(s.getGuthaben());
+            String einsatz = null;
+            int r_einsatz = 0;
+            while (einsatz == null) {
+                einsatz = JOptionPane.showInputDialog(w, "Bitte gebe deinen Einsatz ein!",
+                        JOptionPane.INFORMATION_MESSAGE);
+                try {
+
+                    //TODO: 5er Schritte
+                    r_einsatz = Integer.parseInt(einsatz);
+                    if (r_einsatz < 50) {
+                        JOptionPane optionPane = new JOptionPane("Bitte gebe eine Nummer ab 50 ein!", JOptionPane.ERROR_MESSAGE);
+                        JDialog dialog = optionPane.createDialog("Fehler bei der Eingabe");
+                        dialog.setAlwaysOnTop(true);
+                        dialog.setVisible(true);
+                        einsatz = null;
+                    }
+                    if (s.getGuthaben() - r_einsatz < 0) {
+                        JOptionPane optionPane = new JOptionPane("Du darfst nicht mehr als dein Guthaben eingeben", JOptionPane.ERROR_MESSAGE);
+                        JDialog dialog = optionPane.createDialog("Fehler bei der Eingabe");
+                        dialog.setAlwaysOnTop(true);
+                        dialog.setVisible(true);
+                        einsatz = null;
+                    }
+
+                } catch (NumberFormatException e) {
+                    einsatz = null;
+                    JOptionPane optionPane = new JOptionPane("Bitte gebe eine Nummer ab 50 ein!", JOptionPane.ERROR_MESSAGE);
+                    JDialog dialog = optionPane.createDialog("Fehler bei der Eingabe");
+                    dialog.setAlwaysOnTop(true);
+                    dialog.setVisible(true);
+                }
+
+
+            }
+            getSpiel().aktuellerSpielerEinsatzSetzen(r_einsatz);
+            w.setGuthabenFont(getSpiel().getAktuellerSpieler().getGuthaben());
+
+
         }
 
         System.out.println("Alle Einsätze gemacht");
@@ -66,21 +105,30 @@ public class SpielManger {
         }
         w.showCardValueDealerVerdeckt();
         System.out.println("Alle Spieler und der Dealer haben 2 Karten bekommen");
-        while (spiel.istJederFertig()) {
-            spiel.toErstenSpieler();
-            w.spielStart();
+        w.spielStart();
 
-
-        }
 
     }
 
     public void halten() {
+        if (spiel.getPhase().equals(SpielPhase.SPIELSTART)) {
+            spiel.setPhase(SpielPhase.SPIEL);
+        }
+        JOptionPane.showMessageDialog(w, "Du haltest deine Karten");
+        spiel.naechsterZug();
+
 
     }
 
     public void surrender() {
-
+        if (spiel.getPhase().equals(SpielPhase.SPIELSTART)) {
+            spiel.setPhase(SpielPhase.SPIEL);
+            JOptionPane.showMessageDialog(w, "Du gibst auf!");
+            spiel.getAktuellerSpieler().addGuthaben(spiel.getSpielerEinsatz());
+            spiel.naechsterZug();
+        } else {
+            JOptionPane.showMessageDialog(w, "Du kannst nicht mehr aufgeben!");
+        }
     }
 
     public void doppeln() {
@@ -116,5 +164,80 @@ public class SpielManger {
 
     }
 
+    public void ende() {
+        if (spiel.istJederFertig()) {
+            spiel.setPhase(SpielPhase.SPIELENDE);
+            JOptionPane.showMessageDialog(w, "Die Runde ist zuende");
+            for (Spieler s : spiel.getSpieler()) {
+                if (s.hatGewonnen()) {
+                    int[] summe = s.getKartenSumme();
+                    if (!spiel.getDealer().hatGewonnen()) {
+                        //Einsatz 3:2
+                        int add = spiel.getEinsatz().get(s) + (int) (spiel.getEinsatz().get(s) * 1.5);
+                        s.addGuthaben(add);
+                        w.setGuthabenFont(s.getGuthaben());
+                    } else if (spiel.getDealer().hatGewonnen()) {
+                        //Einsatz 1:1
+                        int add = spiel.getEinsatz().get(s);
+                        s.addGuthaben(add);
+                        w.setGuthabenFont(s.getGuthaben());
+                    }
+                    JOptionPane.showMessageDialog(w, "Du hast gewonnen!");
+
+                } else {
+                    //Spieler hat nicht gewonnen
+
+                    if (!spiel.getDealer().hatGewonnen()) {
+
+                        //EVEN
+                        int[] dealer_summe = spiel.getDealer().getKartenSumme();
+                        int[] spieler_summe = s.getKartenSumme();
+
+
+                        //dealer_summe[1] < spieler_summe[0]; 19 --> 20 Spieler gewonnen
+                        //dealer_summe[0] < spieler_summe[1]; 19 --> 20 => Spieler gewonnnen
+
+
+                        if (((dealer_summe[0] == spieler_summe[0])
+                                || (dealer_summe[1] == spieler_summe[1])
+                                || (dealer_summe[0] == spieler_summe[1])
+                                || (dealer_summe[1] == spieler_summe[0]))) {
+                            //Spieler bekommt Einsatz zurück
+                            s.addGuthaben(spiel.getEinsatz().get(s));
+                            w.setGuthabenFont(s.getGuthaben());
+                            JOptionPane.showMessageDialog(w, "Du bist im Gleichstand mit dem Dealer!");
+
+                        } else if (dealer_summe[0] < spieler_summe[1] && spieler_summe[1] < 21) {
+                            //Spieler gewonnen
+                            //Einsatz 3:2
+                            int add = spiel.getEinsatz().get(s) + (int) (spiel.getEinsatz().get(s) * 1.5);
+                            s.addGuthaben(add);
+                            w.setGuthabenFont(s.getGuthaben());
+                            JOptionPane.showMessageDialog(w, "Du hast gewonnen!");
+                        } else if (dealer_summe[1] < spieler_summe[0] && spieler_summe[0] < 21) {
+                            //Spieler gewonnen
+                            //Einsatz 3:2
+                            int add = spiel.getEinsatz().get(s) + (int) (spiel.getEinsatz().get(s) * 1.5);
+                            s.addGuthaben(add);
+                            w.setGuthabenFont(s.getGuthaben());
+                            JOptionPane.showMessageDialog(w, "Du hast gewonnen!");
+                        } else {
+                            //Dealer gewonnen
+                            JOptionPane.showMessageDialog(w, "Du hast verloren!");
+                        }
+
+                        System.out.println("Der Dealer hatte " + (spiel.getDealer().getKartenSumme()[0] == spiel.getDealer().getKartenSumme()[1] ? spiel.getDealer().getKartenSumme()[0] : spiel.getDealer().getKartenSumme()[0] + "/" + spiel.getDealer().getKartenSumme()[1]));
+
+
+                    }
+                }
+            }
+            try {
+                Thread.sleep(10000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 
 }
