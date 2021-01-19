@@ -33,15 +33,14 @@ public abstract class Entity {
         return inventar;
     }
 
+    public void setInventar(List<Karte> karte) {
+        this.inventar = karte;
+    }
+
     public void reset() {
         getInventar().clear();
         gewinner = false;
 
-    }
-
-
-    public void setInventar(List<Karte> karte) {
-        this.inventar = karte;
     }
 
     public boolean containsKarte(Karte karte) {

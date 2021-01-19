@@ -164,7 +164,6 @@ public class SpielManger {
     }
 
 
-
     public void ende() {
         if (spiel.istJederFertig()) {
             spiel.setPhase(SpielPhase.SPIELENDE);

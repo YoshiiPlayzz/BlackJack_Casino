@@ -36,13 +36,12 @@ public class LoadingScreen extends JFrame {
             for (int i = 1; i < 17; i++) {
                 Thread.sleep(186);
 
-                p.setValue(100 / 14*(i+1));
+                p.setValue(100 / 14 * (i + 1));
                 if (i == 16) {
                     dispose();
                     new StartWindow();
                 }
             }
-
 
 
         } catch (InterruptedException e) {

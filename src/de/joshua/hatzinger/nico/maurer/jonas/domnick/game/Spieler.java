@@ -14,14 +14,14 @@ public class Spieler extends Entity {
         return guthaben;
     }
 
+    public void setGuthaben(int guthaben) {
+        this.guthaben = guthaben;
+    }
+
     @Override
     public void reset() {
         super.reset();
         istFertig = false;
-    }
-
-    public void setGuthaben(int guthaben) {
-        this.guthaben = guthaben;
     }
 
     public void addGuthaben(int guthaben) {
@@ -44,12 +44,12 @@ public class Spieler extends Entity {
     }
 
 
-
-    public void aufgeben(int einsatz){
+    public void aufgeben(int einsatz) {
         super.aufgeben();
         setFertig();
-        addGuthaben(einsatz/2);
+        addGuthaben(einsatz / 2);
     }
+
     @Override
     public String toString() {
         return getName();

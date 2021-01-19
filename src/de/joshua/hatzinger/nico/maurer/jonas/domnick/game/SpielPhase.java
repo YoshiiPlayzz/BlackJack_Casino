@@ -9,9 +9,9 @@ public enum SpielPhase {
     DEALER_ZUG("Der Dealer muss ziehen"),
     SPIELENDE("Ende des Spiels");
 
-    private String desc;
+    private final String desc;
 
-    SpielPhase(String desc){
+    SpielPhase(String desc) {
         this.desc = desc;
 
     }
