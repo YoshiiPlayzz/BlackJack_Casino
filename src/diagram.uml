@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement />
+  <nodes>
+    <node x="199.10833430367956" y="3133.5">de.joshua.hatzinger.nico.maurer.jonas.domnick.ui.Main</node>
+    <node x="494.7661649976705" y="3503.0">de.joshua.hatzinger.nico.maurer.jonas.domnick.game.SpielManger</node>
+    <node x="896.2661649976706" y="2721.0">de.joshua.hatzinger.nico.maurer.jonas.domnick.game.Dealer</node>
+    <node x="1235.7661649976703" y="3580.0">de.joshua.hatzinger.nico.maurer.jonas.domnick.ui.ImagePanel</node>
+    <node x="909.7661649976706" y="3514.0">de.joshua.hatzinger.nico.maurer.jonas.domnick.game.SpielManagerConsole</node>
+    <node x="1500.7661649976703" y="0.0">de.joshua.hatzinger.nico.maurer.jonas.domnick.utils.Countdown</node>
+    <node x="639.2661649976706" y="2013.0">de.joshua.hatzinger.nico.maurer.jonas.domnick.game.Spieler</node>
+    <node x="0.0" y="3514.0">de.joshua.hatzinger.nico.maurer.jonas.domnick.ui.KartenLabel</node>
+    <node x="318.7661649976705" y="2335.0">de.joshua.hatzinger.nico.maurer.jonas.domnick.ui.GameSettings</node>
+    <node x="710.4616634733461" y="0.0">de.joshua.hatzinger.nico.maurer.jonas.domnick.game.Farbe</node>
+    <node x="208.825" y="2528.0">de.joshua.hatzinger.nico.maurer.jonas.domnick.ui.StartWindow</node>
+    <node x="133.76616499767044" y="2346.0">de.joshua.hatzinger.nico.maurer.jonas.domnick.ui.RegelWindow</node>
+    <node x="378.8661649976704" y="3944.0">de.joshua.hatzinger.nico.maurer.jonas.domnick.ui.Window</node>
+    <node x="673.2661649976706" y="1686.0">de.joshua.hatzinger.nico.maurer.jonas.domnick.game.Entity</node>
+    <node x="159.575" y="2721.0">de.joshua.hatzinger.nico.maurer.jonas.domnick.ui.LoadingScreen</node>
+    <node x="711.4616634733461" y="261.0">de.joshua.hatzinger.nico.maurer.jonas.domnick.game.Karte</node>
+    <node x="697.8033966528346" y="2890.0">de.joshua.hatzinger.nico.maurer.jonas.domnick.game.Spiel</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="de.joshua.hatzinger.nico.maurer.jonas.domnick.ui.StartWindow" target="de.joshua.hatzinger.nico.maurer.jonas.domnick.ui.Main">
+      <point x="35.0" y="71.5" />
+      <point x="313.825" y="2696.0" />
+      <point x="322.075" y="2696.0" />
+      <point x="322.075" y="2870.0" />
+      <point x="303.40833430367957" y="2870.0" />
+      <point x="29.80000000000001" y="-38.0" />
+    </edge>
+    <edge source="de.joshua.hatzinger.nico.maurer.jonas.domnick.ui.LoadingScreen" target="de.joshua.hatzinger.nico.maurer.jonas.domnick.ui.StartWindow">
+      <point x="0.0" y="-49.5" />
+      <point x="235.575" y="2696.0" />
+      <point x="243.825" y="2696.0" />
+      <point x="-35.0" y="71.5" />
+    </edge>
+    <edge source="de.joshua.hatzinger.nico.maurer.jonas.domnick.game.Spieler" target="de.joshua.hatzinger.nico.maurer.jonas.domnick.game.Entity">
+      <point x="42.25" y="-116.0" />
+      <point x="766.0161649976706" y="1993.0" />
+      <point x="749.0161649976706" y="1993.0" />
+      <point x="-25.25" y="138.5" />
+    </edge>
+    <edge source="de.joshua.hatzinger.nico.maurer.jonas.domnick.ui.LoadingScreen" target="de.joshua.hatzinger.nico.maurer.jonas.domnick.ui.Main">
+      <point x="38.0" y="49.5" />
+      <point x="0.0" y="-38.0" />
+    </edge>
+    <edge source="de.joshua.hatzinger.nico.maurer.jonas.domnick.game.Spiel" target="de.joshua.hatzinger.nico.maurer.jonas.domnick.game.Spieler">
+      <point x="-16.6875" y="-281.5" />
+      <point x="814.6158966528346" y="2860.0" />
+      <point x="765.4934377249431" y="2860.0" />
+      <point x="765.4934377249431" y="2315.0" />
+      <point x="769.8570740885796" y="2315.0" />
+      <point x="46.09090909090901" y="116.0" />
+    </edge>
+    <edge source="de.joshua.hatzinger.nico.maurer.jonas.domnick.ui.RegelWindow" target="de.joshua.hatzinger.nico.maurer.jonas.domnick.ui.StartWindow">
+      <point x="55.0" y="60.5" />
+      <point x="271.26616499767044" y="2508.0" />
+      <point x="261.325" y="2508.0" />
+      <point x="-17.5" y="-71.5" />
+    </edge>
+    <edge source="de.joshua.hatzinger.nico.maurer.jonas.domnick.ui.GameSettings" target="de.joshua.hatzinger.nico.maurer.jonas.domnick.game.Spieler">
+      <point x="0.0" y="-71.5" />
+      <point x="390.7661649976705" y="2265.0" />
+      <point x="646.9479831794888" y="2265.0" />
+      <point x="-76.81818181818176" y="116.0" />
+    </edge>
+    <edge source="de.joshua.hatzinger.nico.maurer.jonas.domnick.game.Spiel" target="de.joshua.hatzinger.nico.maurer.jonas.domnick.game.Karte">
+      <point x="-116.8125" y="-281.5" />
+      <point x="714.4908966528346" y="2870.0" />
+      <point x="628.7661649976706" y="2870.0" />
+      <point x="628.7661649976706" y="1656.0" />
+      <point x="761.4616634733461" y="1656.0" />
+      <point x="-30.0" y="677.5" />
+    </edge>
+    <edge source="de.joshua.hatzinger.nico.maurer.jonas.domnick.game.SpielManagerConsole" target="de.joshua.hatzinger.nico.maurer.jonas.domnick.game.Karte">
+      <point x="117.60000000000002" y="-149.5" />
+      <point x="1174.3661649976705" y="3483.0" />
+      <point x="1130.730413473346" y="3483.0" />
+      <point x="1130.730413473346" y="1646.0" />
+      <point x="841.4616634733461" y="1646.0" />
+      <point x="50.0" y="677.5" />
+    </edge>
+    <edge source="de.joshua.hatzinger.nico.maurer.jonas.domnick.game.SpielManger" target="de.joshua.hatzinger.nico.maurer.jonas.domnick.game.Spieler">
+      <point x="-49.200000000000045" y="-160.5" />
+      <point x="568.5661649976705" y="3483.0" />
+      <point x="565.9179134733461" y="3483.0" />
+      <point x="565.9179134733461" y="2305.0" />
+      <point x="708.4025286340343" y="2305.0" />
+      <point x="-15.36363636363626" y="116.0" />
+    </edge>
+    <edge source="de.joshua.hatzinger.nico.maurer.jonas.domnick.ui.Window" target="de.joshua.hatzinger.nico.maurer.jonas.domnick.game.Spieler">
+      <point x="-14.78947368421052" y="-556.5" />
+      <point x="504.5766913134599" y="3844.0" />
+      <point x="484.2661649976705" y="3844.0" />
+      <point x="484.2661649976705" y="2285.0" />
+      <point x="677.6752559067615" y="2285.0" />
+      <point x="-46.09090909090901" y="116.0" />
+    </edge>
+    <edge source="de.joshua.hatzinger.nico.maurer.jonas.domnick.game.Spiel" target="de.joshua.hatzinger.nico.maurer.jonas.domnick.game.Dealer">
+      <point x="50.0625" y="-281.5" />
+      <point x="881.3658966528346" y="2850.0" />
+      <point x="915.0161649976706" y="2850.0" />
+      <point x="-56.25" y="49.5" />
+    </edge>
+    <edge source="de.joshua.hatzinger.nico.maurer.jonas.domnick.ui.Window" target="de.joshua.hatzinger.nico.maurer.jonas.domnick.game.Spiel">
+      <point x="73.94736842105272" y="-556.5" />
+      <point x="593.3135334187232" y="3884.0" />
+      <point x="831.3033966528346" y="3884.0" />
+      <point x="0.0" y="281.5" />
+    </edge>
+    <edge source="de.joshua.hatzinger.nico.maurer.jonas.domnick.ui.StartWindow" target="de.joshua.hatzinger.nico.maurer.jonas.domnick.ui.GameSettings">
+      <point x="17.5" y="-71.5" />
+      <point x="296.325" y="2498.0" />
+      <point x="333.1661649976705" y="2498.0" />
+      <point x="-57.60000000000002" y="71.5" />
+    </edge>
+    <edge source="de.joshua.hatzinger.nico.maurer.jonas.domnick.game.SpielManger" target="de.joshua.hatzinger.nico.maurer.jonas.domnick.game.Spiel">
+      <point x="49.200000000000045" y="-160.5" />
+      <point x="666.9661649976706" y="3473.0" />
+      <point x="724.5033966528347" y="3473.0" />
+      <point x="-106.79999999999995" y="281.5" />
+    </edge>
+    <edge source="de.joshua.hatzinger.nico.maurer.jonas.domnick.ui.StartWindow" target="de.joshua.hatzinger.nico.maurer.jonas.domnick.ui.RegelWindow">
+      <point x="-52.5" y="-71.5" />
+      <point x="226.325" y="2508.0" />
+      <point x="216.26616499767044" y="2508.0" />
+      <point x="0.0" y="60.5" />
+    </edge>
+    <edge source="de.joshua.hatzinger.nico.maurer.jonas.domnick.ui.Main" target="de.joshua.hatzinger.nico.maurer.jonas.domnick.ui.LoadingScreen">
+      <point x="-29.80000000000001" y="-38.0" />
+      <point x="243.80833430367954" y="2860.0" />
+      <point x="197.575" y="2860.0" />
+      <point x="-38.0" y="49.5" />
+    </edge>
+    <edge source="de.joshua.hatzinger.nico.maurer.jonas.domnick.ui.RegelWindow" target="de.joshua.hatzinger.nico.maurer.jonas.domnick.ui.Main">
+      <point x="-55.0" y="60.5" />
+      <point x="161.26616499767044" y="2508.0" />
+      <point x="149.07499999999993" y="2508.0" />
+      <point x="149.07499999999993" y="2870.0" />
+      <point x="214.0083343036796" y="2870.0" />
+      <point x="-59.599999999999966" y="-38.0" />
+    </edge>
+    <edge source="de.joshua.hatzinger.nico.maurer.jonas.domnick.ui.Window" target="de.joshua.hatzinger.nico.maurer.jonas.domnick.ui.ImagePanel">
+      <point x="118.31578947368416" y="-556.5" />
+      <point x="637.6819544713546" y="3914.0" />
+      <point x="1290.7661649976703" y="3914.0" />
+      <point x="-55.0" y="83.5" />
+    </edge>
+    <edge source="de.joshua.hatzinger.nico.maurer.jonas.domnick.ui.Window" target="de.joshua.hatzinger.nico.maurer.jonas.domnick.game.Dealer">
+      <point x="88.73684210526312" y="-556.5" />
+      <point x="608.1030071029336" y="3894.0" />
+      <point x="1214.2661649976703" y="3894.0" />
+      <point x="1214.2661649976703" y="2870.0" />
+      <point x="1027.5161649976706" y="2870.0" />
+      <point x="56.25" y="49.5" />
+    </edge>
+    <edge source="de.joshua.hatzinger.nico.maurer.jonas.domnick.game.Karte" target="de.joshua.hatzinger.nico.maurer.jonas.domnick.game.Farbe">
+      <point x="-40.0" y="-677.5" />
+      <point x="-40.5" y="105.5" />
+    </edge>
+    <edge source="de.joshua.hatzinger.nico.maurer.jonas.domnick.ui.GameSettings" target="de.joshua.hatzinger.nico.maurer.jonas.domnick.ui.Main">
+      <point x="0.0" y="71.5" />
+      <point x="390.7661649976705" y="2508.0" />
+      <point x="408.62499999999994" y="2508.0" />
+      <point x="408.62499999999994" y="2870.0" />
+      <point x="333.2083343036796" y="2870.0" />
+      <point x="59.60000000000002" y="-38.0" />
+    </edge>
+    <edge source="de.joshua.hatzinger.nico.maurer.jonas.domnick.ui.GameSettings" target="de.joshua.hatzinger.nico.maurer.jonas.domnick.ui.StartWindow">
+      <point x="-28.799999999999955" y="71.5" />
+      <point x="361.96616499767055" y="2508.0" />
+      <point x="331.325" y="2508.0" />
+      <point x="52.5" y="-71.5" />
+    </edge>
+    <edge source="de.joshua.hatzinger.nico.maurer.jonas.domnick.ui.Window" target="de.joshua.hatzinger.nico.maurer.jonas.domnick.game.Karte">
+      <point x="103.52631578947376" y="-556.5" />
+      <point x="622.8924807871442" y="3904.0" />
+      <point x="1225.2661649976703" y="3904.0" />
+      <point x="1225.2661649976703" y="1636.0" />
+      <point x="861.4616634733461" y="1636.0" />
+      <point x="70.0" y="677.5" />
+    </edge>
+    <edge source="de.joshua.hatzinger.nico.maurer.jonas.domnick.ui.Window" target="de.joshua.hatzinger.nico.maurer.jonas.domnick.ui.Main">
+      <point x="-73.9473684210526" y="-556.5" />
+      <point x="445.4187965766178" y="3884.0" />
+      <point x="310.85833430367956" y="3884.0" />
+      <point x="37.25" y="38.0" />
+    </edge>
+    <edge source="de.joshua.hatzinger.nico.maurer.jonas.domnick.game.SpielManagerConsole" target="de.joshua.hatzinger.nico.maurer.jonas.domnick.game.Spiel">
+      <point x="-117.60000000000002" y="-149.5" />
+      <point x="939.1661649976704" y="3483.0" />
+      <point x="884.7033966528347" y="3483.0" />
+      <point x="53.39999999999998" y="281.5" />
+    </edge>
+    <edge source="de.joshua.hatzinger.nico.maurer.jonas.domnick.ui.KartenLabel" target="de.joshua.hatzinger.nico.maurer.jonas.domnick.game.Karte">
+      <point x="0.0" y="-149.5" />
+      <point x="119.0" y="3483.0" />
+      <point x="91.90833430367957" y="3483.0" />
+      <point x="91.90833430367957" y="1646.0" />
+      <point x="741.4616634733461" y="1646.0" />
+      <point x="-50.0" y="677.5" />
+    </edge>
+    <edge source="de.joshua.hatzinger.nico.maurer.jonas.domnick.ui.GameSettings" target="de.joshua.hatzinger.nico.maurer.jonas.domnick.ui.Window">
+      <point x="28.799999999999955" y="71.5" />
+      <point x="419.56616499767046" y="2508.0" />
+      <point x="423.86791347334605" y="2508.0" />
+      <point x="423.86791347334605" y="3874.0" />
+      <point x="460.20827026082833" y="3874.0" />
+      <point x="-59.15789473684208" y="-556.5" />
+    </edge>
+    <edge source="de.joshua.hatzinger.nico.maurer.jonas.domnick.game.Entity" target="de.joshua.hatzinger.nico.maurer.jonas.domnick.game.Karte">
+      <point x="-50.5" y="-138.5" />
+      <point x="723.7661649976706" y="1666.0" />
+      <point x="781.4616634733461" y="1666.0" />
+      <point x="-10.0" y="677.5" />
+    </edge>
+    <edge source="de.joshua.hatzinger.nico.maurer.jonas.domnick.ui.Window" target="de.joshua.hatzinger.nico.maurer.jonas.domnick.ui.KartenLabel">
+      <point x="-133.10526315789468" y="-556.5" />
+      <point x="386.2609018397757" y="3924.0" />
+      <point x="29.75" y="3924.0" />
+      <point x="-89.25" y="149.5" />
+    </edge>
+    <edge source="de.joshua.hatzinger.nico.maurer.jonas.domnick.ui.KartenLabel" target="de.joshua.hatzinger.nico.maurer.jonas.domnick.ui.Main">
+      <point x="79.33333333333331" y="-149.5" />
+      <point x="198.33333333333331" y="3483.0" />
+      <point x="236.35833430367956" y="3483.0" />
+      <point x="-37.25" y="38.0" />
+    </edge>
+    <edge source="de.joshua.hatzinger.nico.maurer.jonas.domnick.game.SpielManger" target="de.joshua.hatzinger.nico.maurer.jonas.domnick.ui.Window">
+      <point x="49.200000000000045" y="160.5" />
+      <point x="666.9661649976706" y="3864.0" />
+      <point x="563.7345860503021" y="3864.0" />
+      <point x="44.368421052631675" y="-556.5" />
+    </edge>
+    <edge source="de.joshua.hatzinger.nico.maurer.jonas.domnick.game.Dealer" target="de.joshua.hatzinger.nico.maurer.jonas.domnick.game.Entity">
+      <point x="37.5" y="-49.5" />
+      <point x="1008.7661649976706" y="2696.0" />
+      <point x="993.9616634733461" y="2696.0" />
+      <point x="993.9616634733461" y="1983.0" />
+      <point x="850.0161649976706" y="1983.0" />
+      <point x="75.75" y="138.5" />
+    </edge>
+    <edge source="de.joshua.hatzinger.nico.maurer.jonas.domnick.ui.Window" target="de.joshua.hatzinger.nico.maurer.jonas.domnick.game.SpielManger">
+      <point x="0.0" y="-556.5" />
+      <point x="-98.40000000000009" y="160.5" />
+    </edge>
+    <edge source="de.joshua.hatzinger.nico.maurer.jonas.domnick.game.SpielManagerConsole" target="de.joshua.hatzinger.nico.maurer.jonas.domnick.game.Spieler">
+      <point x="58.799999999999955" y="-149.5" />
+      <point x="1115.5661649976705" y="3483.0" />
+      <point x="1119.730413473346" y="3483.0" />
+      <point x="1119.730413473346" y="2305.0" />
+      <point x="800.5843468158523" y="2305.0" />
+      <point x="76.81818181818176" y="116.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="0.6000000000000001" x="649.0277777777776" y="1584.9999999999998" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Fields</Category>
+    <Category>Constructors</Category>
+    <Category>Methods</Category>
+    <Category>Properties</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

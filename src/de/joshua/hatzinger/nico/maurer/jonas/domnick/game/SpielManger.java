@@ -41,7 +41,6 @@ public class SpielManger {
 
     public void startSpiel() {
         for (Spieler s : w.getSpielerListUtil()) {
-
             if (!spiel.getSpieler().contains(s)) {
                 s.setGuthaben(8000);
                 spiel.addSpieler(s);
@@ -98,7 +97,7 @@ public class SpielManger {
         for (int x = 0; x < 2; x++) {
             for (int i = 0; i < spiel.getSpielerAnzahl(); i++) {
                 karteZiehen();
-                w.showCardValueSpieler(spiel.getAktuellerSpieler());
+                w.excecuteSpieler(spiel.getAktuellerSpieler());
                 spiel.naechsterSpieler();
             }
             dealerZiehen(x == 1);
@@ -114,7 +113,7 @@ public class SpielManger {
         if (spiel.getPhase().equals(SpielPhase.SPIELSTART)) {
             spiel.setPhase(SpielPhase.SPIEL);
         }
-        JOptionPane.showMessageDialog(w, "Du haltest deine Karten");
+        JOptionPane.showMessageDialog(w, "Du hälst deine Karten");
         spiel.naechsterZug();
 
 
@@ -136,8 +135,10 @@ public class SpielManger {
             spiel.setPhase(SpielPhase.SPIEL);
             if (spiel.getEinsatz().get(spiel.getAktuellerSpieler()) * 2 <= spiel.getAktuellerSpieler().getGuthaben()) {
                 JOptionPane.showMessageDialog(w, "Du verdoppelst deinen Einsatz auf " + spiel.getEinsatz().get(spiel.getAktuellerSpieler()) * 2 + "!");
+
                 spiel.getEinsatz().replace(spiel.getAktuellerSpieler(), spiel.getEinsatz().get(spiel.getAktuellerSpieler()) * 2);
-                spiel.naechsterZug();
+                spiel.getAktuellerSpieler().setGuthabenMinus(spiel.getEinsatz().get(spiel.getAktuellerSpieler()));
+                w.setGuthabenFont(spiel.getAktuellerSpieler().getGuthaben());
             } else {
                 JOptionPane.showMessageDialog(w, "Du hast zu wenig Guthaben zum verdoppeln!");
             }
@@ -229,16 +230,19 @@ public class SpielManger {
                         System.out.println("Der Dealer hatte " + (spiel.getDealer().getKartenSumme()[0] == spiel.getDealer().getKartenSumme()[1] ? spiel.getDealer().getKartenSumme()[0] : spiel.getDealer().getKartenSumme()[0] + "/" + spiel.getDealer().getKartenSumme()[1]));
 
 
+                    } else {
+                        JOptionPane.showMessageDialog(w, "Du hast verloren!");
                     }
                 }
             }
             try {
-                Thread.sleep(10000);
-                w.reset();
+                Thread.sleep(2000);
+
 
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
+            w.reset();
         }
     }
 

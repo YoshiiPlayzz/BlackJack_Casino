@@ -93,6 +93,7 @@ public class Spiel {
 
     public void reset() {
         einsatz.clear();
+        setPhase(SpielPhase.SPIELSTART);
         toErstenSpieler();
 
     }

@@ -39,6 +39,7 @@ public class Window extends JFrame {
     private final KartenLabel Kartenstapel;
     private final KartenLabel Kartenstapel2;
     private final KartenLabel Kartenstapel3;
+    private final JLabel verloren;
     private final HashMap<Spieler, Integer> temp_einsatz = new HashMap<>();
 
 
@@ -48,6 +49,9 @@ public class Window extends JFrame {
         halten = new JButton(new ImageIcon(new ImageIcon(Main.class.getResource("/images/Buttons/715399.png")).getImage().getScaledInstance(40, 40, Image.SCALE_SMOOTH)));
         ziehen = new JButton(new ImageIcon(new ImageIcon(Main.class.getResource("/images/Buttons/2182944.png")).getImage().getScaledInstance(40, 40, Image.SCALE_SMOOTH)));
         Verdoppeln = new JButton(new ImageIcon(new ImageIcon(Main.class.getResource("/images/Buttons/x2-512.png")).getImage().getScaledInstance(40, 40, Image.SCALE_SMOOTH)));
+        verloren = new JLabel(new ImageIcon(Main.class.getResource("/images/KaoCasino.png")));
+        verloren.setBounds(400, 100, 677, 676);
+        verloren.setVisible(false);
 
         surrender.setToolTipText("Aufgeben/Surrender");
         halten.setToolTipText("Karten halten");
@@ -68,22 +72,34 @@ public class Window extends JFrame {
 
             if (sm.getSpiel().getPhase().equals(SpielPhase.SPIELSTART)) {
                 sm.surrender();
+                surrender.setVisible(false);
+                Verdoppeln.setVisible(false);
             } else {
                 JOptionPane.showMessageDialog(this, "Wait that's illegal");
             }
         });
 
         halten.addActionListener(l -> {
-            sm.halten();
+            if (!sm.getSpiel().getPhase().equals(SpielPhase.DEALER_ZUG) || !sm.getSpiel().getPhase().equals(SpielPhase.SPIELENDE)) {
+                sm.halten();
+                surrender.setVisible(false);
+                Verdoppeln.setVisible(false);
+            }
         });
         ziehen.addActionListener(l -> {
-            sm.karteZiehen();
+            if (!sm.getSpiel().getPhase().equals(SpielPhase.DEALER_ZUG) || !sm.getSpiel().getPhase().equals(SpielPhase.SPIELENDE)) {
+                sm.karteZiehen();
+                surrender.setVisible(false);
+                Verdoppeln.setVisible(false);
+            }
 
 
         });
         Verdoppeln.addActionListener(l -> {
             if (sm.getSpiel().getPhase().equals(SpielPhase.SPIELSTART)) {
                 sm.doppeln();
+
+
             } else {
                 JOptionPane.showMessageDialog(this, "Wait that's illegal");
             }
@@ -237,6 +253,7 @@ public class Window extends JFrame {
         add(dealerKartenWertLabel);
         add(einsatz);
         add(spielerKartenWertLabel);
+        add(verloren);
 
         addKeyListener(new KeyAdapter() {
             @Override
@@ -562,10 +579,10 @@ public class Window extends JFrame {
                     if (s.getKartenSumme()[0] == 21 || s.getKartenSumme()[1] == 21) {
                         s.setGewinner();
                         sm.getSpiel().naechsterZug();
-                    } else if (s.getKartenSumme()[0] > 21 && s.getKartenSumme()[1] > 21) {
-                        if (sm.getSpiel().getAktuellerSpieler() == s) {
-                            sm.getSpiel().naechsterZug();
-                        }
+                    }
+                    if (s.getKartenSumme()[0] > 21 && s.getKartenSumme()[1] > 21) {
+
+                        sm.getSpiel().naechsterZug();
 
                     }
 
@@ -574,7 +591,6 @@ public class Window extends JFrame {
                     sm.getSpiel().setPhase(SpielPhase.DEALER_ZUG);
                     dealerZug();
                     cancel();
-
                 }
             }
         }, 1000, 1000);
@@ -592,19 +608,14 @@ public class Window extends JFrame {
                     showCardValueDealer();
                 }
             }
-            if (!sm.getSpiel().jederVerloren()) {
-
-
-                while (d.takeCard()) {
-                    sm.dealerZiehen(false);
-                }
-                try {
-                    Thread.sleep(1000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
+            while (d.takeCard()) {
+                sm.dealerZiehen(false);
             }
-
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
 
             sm.ende();
         }
@@ -619,11 +630,30 @@ public class Window extends JFrame {
             sm.getSpiel().getDealer().reset();
 
         }
+        spielerList.clear();
+
+        for (Spieler s : spielerListUtil) {
+            spielerList.put(s, new ArrayList<>());
+        }
         for (KartenLabel l : dealerKartenList) {
             remove(l);
         }
+        dealerKartenList.clear();
         sm.getSpiel().reset();
-        sm.startSpiel();
+        if (sm.getSpiel().getSpieler().get(0).getGuthaben() == 0) {
+            System.out.println("Du hast kein Guthaben mehr");
+            JOptionPane.showMessageDialog(this, "Du hast dein ganzes Guthaben verloren!");
+            verloren.setVisible(true);
+            try {
+                Thread.sleep(5000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            System.exit(-1);
+
+        } else {
+            sm.startSpiel();
+        }
     }
 
 
