@@ -6,7 +6,7 @@ import java.util.List;
 public abstract class Entity {
 
 
-    private String name;
+    private final String name;
     private List<Karte> inventar;
 
     private boolean gewinner;
@@ -33,15 +33,19 @@ public abstract class Entity {
         return inventar;
     }
 
+    public void reset() {
+        getInventar().clear();
+        gewinner = false;
+
+    }
+
+
     public void setInventar(List<Karte> karte) {
         this.inventar = karte;
     }
 
     public boolean containsKarte(Karte karte) {
-        if (inventar.contains(karte)) {
-            return true;
-        }
-        return false;
+        return inventar.contains(karte);
     }
 
     public void aufgeben() {

@@ -557,15 +557,15 @@ public class Window extends JFrame {
         t.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
-                System.out.println("Tick");
                 for (Spieler s : sm.getSpiel().getSpieler()) {
 
                     if (s.getKartenSumme()[0] == 21 || s.getKartenSumme()[1] == 21) {
                         s.setGewinner();
                         sm.getSpiel().naechsterZug();
                     } else if (s.getKartenSumme()[0] > 21 && s.getKartenSumme()[1] > 21) {
-                        sm.getSpiel().naechsterZug();
-                        System.out.println("Der Spieler hat verloren");
+                        if (sm.getSpiel().getAktuellerSpieler() == s) {
+                            sm.getSpiel().naechsterZug();
+                        }
 
                     }
 
@@ -584,7 +584,6 @@ public class Window extends JFrame {
 
     public void dealerZug() {
         if (sm.getSpiel().getPhase().equals(SpielPhase.DEALER_ZUG)) {
-
             Dealer d = sm.getSpiel().getDealer();
             for (KartenLabel k : dealerKartenList) {
                 if (k.isKarteVerdeckt()) {
@@ -616,10 +615,14 @@ public class Window extends JFrame {
             for (KartenLabel l : e.getValue()) {
                 remove(l);
             }
-            e.getKey().getInventar().clear();
-            sm.getSpiel().getDealer().getInventar().clear();
+            e.getKey().reset();
+            sm.getSpiel().getDealer().reset();
 
         }
+        for (KartenLabel l : dealerKartenList) {
+            remove(l);
+        }
+        sm.getSpiel().reset();
         sm.startSpiel();
     }
 

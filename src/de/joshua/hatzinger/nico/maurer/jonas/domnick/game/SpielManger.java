@@ -124,7 +124,7 @@ public class SpielManger {
         if (spiel.getPhase().equals(SpielPhase.SPIELSTART)) {
             spiel.setPhase(SpielPhase.SPIEL);
             JOptionPane.showMessageDialog(w, "Du gibst auf!");
-            spiel.getAktuellerSpieler().addGuthaben(spiel.getSpielerEinsatz());
+            spiel.getAktuellerSpieler().aufgeben(spiel.getSpielerEinsatz());
             spiel.naechsterZug();
         } else {
             JOptionPane.showMessageDialog(w, "Du kannst nicht mehr aufgeben!");
@@ -132,8 +132,20 @@ public class SpielManger {
     }
 
     public void doppeln() {
-
+        if (spiel.getPhase().equals(SpielPhase.SPIELSTART)) {
+            spiel.setPhase(SpielPhase.SPIEL);
+            if (spiel.getEinsatz().get(spiel.getAktuellerSpieler()) * 2 <= spiel.getAktuellerSpieler().getGuthaben()) {
+                JOptionPane.showMessageDialog(w, "Du verdoppelst deinen Einsatz auf " + spiel.getEinsatz().get(spiel.getAktuellerSpieler()) * 2 + "!");
+                spiel.getEinsatz().replace(spiel.getAktuellerSpieler(), spiel.getEinsatz().get(spiel.getAktuellerSpieler()) * 2);
+                spiel.naechsterZug();
+            } else {
+                JOptionPane.showMessageDialog(w, "Du hast zu wenig Guthaben zum verdoppeln!");
+            }
+        } else {
+            JOptionPane.showMessageDialog(w, "Du kannst nicht mehr aufgeben!");
+        }
     }
+
 
     public Spiel getSpiel() {
         return spiel;
@@ -150,19 +162,7 @@ public class SpielManger {
         w.excecuteSpieler(spiel.getAktuellerSpieler());
     }
 
-    public void einsatzSetzen() {
 
-
-    }
-
-
-    public void sendAktuellerSpielerKarten() {
-
-    }
-
-    public void einsatzVonAktuellenSpielerSetzen(int einsatz) {
-
-    }
 
     public void ende() {
         if (spiel.istJederFertig()) {
@@ -234,6 +234,8 @@ public class SpielManger {
             }
             try {
                 Thread.sleep(10000);
+                w.reset();
+
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }

@@ -91,6 +91,12 @@ public class Spiel {
         return c == spieler.size();
     }
 
+    public void reset() {
+        einsatz.clear();
+        toErstenSpieler();
+
+    }
+
 
     public boolean aktuellerSpielerEinsatzSetzen(int einsatz) {
         if (!this.einsatz.containsKey(aktuellerSpieler)) {

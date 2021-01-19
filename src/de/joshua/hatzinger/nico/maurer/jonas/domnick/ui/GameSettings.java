@@ -61,11 +61,17 @@ public class GameSettings extends JFrame {
             } else {
                 Window.addSpieler(new Spieler(name.getText()));
                 dispose();
-                try {
-                    new Window();
-                } catch (IOException ioException) {
-                    ioException.printStackTrace();
-                }
+                SwingUtilities.invokeLater(() -> {
+                    Window w = null;
+                    try {
+                        w = new Window();
+                    } catch (IOException xe) {
+                        xe.printStackTrace();
+                    }
+                    w.refreshBck();
+                    w.getSpielManager().startSpiel();
+
+                });
             }
         });
         spielen.setBounds(160, 120, 100, 25);

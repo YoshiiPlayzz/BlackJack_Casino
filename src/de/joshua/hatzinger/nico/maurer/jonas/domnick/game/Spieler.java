@@ -14,6 +14,12 @@ public class Spieler extends Entity {
         return guthaben;
     }
 
+    @Override
+    public void reset() {
+        super.reset();
+        istFertig = false;
+    }
+
     public void setGuthaben(int guthaben) {
         this.guthaben = guthaben;
     }
